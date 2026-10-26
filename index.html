@@ -5,163 +5,214 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>2NK เวรวันเสาร์</title>
-<meta name="theme-color" content="#1F2340">
+<meta name="theme-color" content="#121212">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <style>
 :root{
-  --navy:#1F2340; --navy2:#2E3463; --bg:#F3F5F9; --card:#fff; --line:#E3E7EF; --mut:#6B7280; --txt:#1B1F33;
-  --ok:#14874B; --okbg:#E6F6EC; --warn:#B26A00; --warnbg:#FFF4DE; --bad:#C0392B; --badbg:#FDECEA;
-  --sub:#5B4BC4; --subbg:#EEEBFF; --gray:#8A90A0; --graybg:#F0F2F6; --acc:#E85D75;
-  --r:14px; --sh:0 1px 2px rgba(20,25,50,.06),0 4px 14px rgba(20,25,50,.05);
+  --bg:#121212; --s1:#1A1A1A; --s2:#212121; --s3:#2A2A2A; --line:#2E2E2E; --line2:#3A3A3A;
+  --txt:#EDE6DA; --txt2:#B9B2A6; --mut:#7E776C;
+  --gold:#B08D57; --gold2:#C9A46A; --goldbg:rgba(176,141,87,.14); --goldline:rgba(176,141,87,.45);
+  --ok:#6FB58A; --okbg:rgba(111,181,138,.13); --warn:#D9A54A; --warnbg:rgba(217,165,74,.14);
+  --bad:#D9776A; --badbg:rgba(217,119,106,.14); --sub:#A79BE0; --subbg:rgba(167,155,224,.14);
+  --r:12px;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--txt);font-family:'IBM Plex Sans Thai',system-ui,sans-serif;font-size:15px;-webkit-text-size-adjust:100%}
+html,body{margin:0;background:var(--bg);color:var(--txt);font-family:'Inter','IBM Plex Sans Thai',system-ui,sans-serif;font-size:15px;-webkit-text-size-adjust:100%}
+body{min-height:100dvh}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
-.top{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;padding:calc(env(safe-area-inset-top) + 10px) 16px 10px;display:flex;align-items:center;gap:10px}
-.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;white-space:nowrap}
-.logo b{background:#fff;color:var(--navy);border-radius:8px;padding:2px 7px;font-size:14px;letter-spacing:.5px}
-.top .sp{flex:1}
-.me{background:rgba(255,255,255,.12);border:0;border-radius:99px;color:#fff;padding:6px 12px;font-size:14px;max-width:46vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.icon-btn{background:rgba(255,255,255,.12);border:0;border-radius:99px;color:#fff;width:34px;height:34px;display:grid;place-items:center;font-size:16px}
-nav.tabs{display:flex;gap:4px;background:var(--navy);padding:0 12px 8px}
-nav.tabs button{flex:1;background:transparent;border:0;color:#C9CDE3;padding:8px 6px;border-radius:10px;font-weight:500;white-space:nowrap}
-nav.tabs button.on{background:#fff;color:var(--navy)}
-main{max-width:1180px;margin:0 auto;padding:14px 16px 110px}
-h2{font-size:17px;margin:18px 2px 10px}
-.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:14px}
-.hero{border-top:4px solid var(--acc)}
-.dayhead{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
-.dayhead .d{font-size:20px;font-weight:700}
-.dayhead .rel{color:var(--mut);font-size:13px}
-.tag{display:inline-flex;align-items:center;gap:4px;border-radius:99px;padding:2px 9px;font-size:12px;font-weight:600;white-space:nowrap}
-.t-all{background:#FFE9EE;color:#B0304B}
-.t-note{background:var(--graybg);color:#4B5163}
-.t-cancel{background:var(--badbg);color:var(--bad)}
-.counts{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
-.people{margin-top:10px;display:grid;gap:6px}
-.p{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:left;width:100%}
-.p:hover{border-color:#C8CEDD}
-.av{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;background:var(--navy2);font-size:14px}
-.av.g2{background:#0E7C86}
-.av.g0{background:#9A6B1F}
-.pn{flex:1;min-width:0}
-.pn .n{font-weight:600}
-.pn .s{font-size:12.5px;color:var(--mut);overflow-wrap:anywhere}
-.pn .s s{color:var(--gray)}
-.st{flex:none;font-size:12px;font-weight:600;border-radius:99px;padding:3px 9px;white-space:nowrap}
+i.ti{font-size:18px;line-height:1;vertical-align:-3px}
+.top{position:sticky;top:0;z-index:20;background:rgba(18,18,18,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topin{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:calc(env(safe-area-inset-top) + 10px) 16px 10px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;letter-spacing:.3px;white-space:nowrap}
+.mark{width:30px;height:30px;border:1px solid var(--gold);color:var(--gold);border-radius:8px;display:grid;place-items:center;font-size:11px;font-weight:600;letter-spacing:.5px}
+.logo small{color:var(--mut);font-weight:400;font-size:12px;display:block;letter-spacing:1.5px;text-transform:uppercase}
+.sp{flex:1}
+nav.tabs{display:flex;gap:2px}
+nav.tabs button{background:none;border:0;color:var(--txt2);padding:8px 14px;border-radius:8px;font-weight:500;display:flex;align-items:center;gap:7px;white-space:nowrap}
+nav.tabs button:hover{background:var(--s2)}
+nav.tabs button.on{color:var(--gold2);background:var(--goldbg)}
+.acct{display:flex;align-items:center;gap:8px;background:var(--s2);border:1px solid var(--line);border-radius:99px;padding:4px 12px 4px 4px;color:var(--txt)}
+.acct .av{width:28px;height:28px;font-size:12px}
+main{max-width:1240px;margin:0 auto;padding:18px 16px 110px}
+h2{font-size:15px;font-weight:600;margin:0 0 12px;letter-spacing:.2px}
+.eyebrow{font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--mut);font-weight:500}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.muted{color:var(--mut)} .t2{color:var(--txt2)}
+.small{font-size:13px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{border:1px solid var(--line2);background:var(--s2);color:var(--txt);border-radius:9px;padding:9px 14px;font-weight:500;display:inline-flex;align-items:center;gap:7px;justify-content:center}
+.btn:hover{border-color:var(--mut)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#16120C}
+.btn.gold:hover{background:var(--gold2)}
+.btn.ghost{background:none;border-color:transparent;color:var(--txt2)}
+.btn.danger{color:var(--bad);border-color:rgba(217,119,106,.4);background:none}
+.btn.sm{padding:6px 10px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:default}
+.seg{display:inline-flex;background:var(--s2);border:1px solid var(--line);border-radius:9px;padding:3px}
+.seg button{border:0;background:none;color:var(--txt2);padding:6px 12px;border-radius:7px;font-size:13px;font-weight:500}
+.seg button.on{background:var(--s3);color:var(--gold2)}
+.av{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:13px;background:var(--s3);color:var(--gold2);border:1px solid var(--line2)}
+.av.g2{color:#9CC7C0} .av.g0{color:#C9A0C9}
+.st{flex:none;font-size:12px;font-weight:500;border-radius:99px;padding:3px 10px;white-space:nowrap;border:1px solid transparent}
 .s-present,.s-sub{background:var(--okbg);color:var(--ok)}
 .s-wait{background:var(--warnbg);color:var(--warn)}
-.s-future,.s-noscan,.s-cancelled{background:var(--graybg);color:var(--gray)}
-.s-open{background:var(--warnbg);color:#C2410C;animation:pulse 1.6s infinite}
+.s-future,.s-noscan,.s-cancelled{background:var(--s3);color:var(--mut)}
+.s-open{background:var(--warnbg);color:var(--warn);border-color:rgba(217,165,74,.5)}
 .s-absent,.s-subabsent{background:var(--badbg);color:var(--bad)}
-@keyframes pulse{50%{opacity:.55}}
-.subtag{background:var(--subbg);color:var(--sub);border-radius:6px;padding:0 6px;font-size:11.5px;font-weight:600;margin-left:4px}
-.mine{outline:2px solid var(--acc);outline-offset:-1px}
-.banner{display:flex;gap:10px;align-items:center;background:#FFF0F3;border:1px solid #F7C6D0;border-radius:var(--r);padding:12px 14px;margin-bottom:12px}
+.tag{display:inline-flex;align-items:center;gap:5px;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:500;white-space:nowrap;background:var(--s3);color:var(--txt2)}
+.tag.gold{background:var(--goldbg);color:var(--gold2)}
+.tag.warn{background:var(--warnbg);color:var(--warn)}
+.tag.sub{background:var(--subbg);color:var(--sub)}
+.tag.bad{background:var(--badbg);color:var(--bad)}
+.banner{display:flex;gap:12px;align-items:center;border:1px solid var(--goldline);background:linear-gradient(90deg,var(--goldbg),transparent);border-radius:var(--r);padding:12px 16px;margin-bottom:16px}
 .banner .t{flex:1}
-.btn{border:0;border-radius:10px;padding:9px 14px;font-weight:600;background:var(--navy);color:#fff}
-.btn.sec{background:var(--graybg);color:var(--txt)}
-.btn.warn{background:var(--acc)}
-.btn.ok{background:var(--ok)}
-.btn.danger{background:var(--badbg);color:var(--bad)}
-.btn:disabled{opacity:.5;cursor:default}
-.grid{display:grid;gap:12px}
-.mini .p{padding:6px 8px}
-.mini .av{width:28px;height:28px;font-size:12px}
-.months{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:thin}
-.months button{flex:none;border:1px solid var(--line);background:#fff;border-radius:99px;padding:6px 12px}
-.months button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.chk{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--mut)}
+/* layout หน้าแรก */
+.home{display:grid;gap:16px}
+@media (min-width:980px){ .home{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:start} .detail{position:sticky;top:76px} }
+/* ปฏิทิน */
+.calhead{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.calhead .m{font-size:20px;font-weight:600;letter-spacing:.2px}
+.calhead .y{color:var(--mut);font-weight:400}
+.iconbtn{width:34px;height:34px;border-radius:9px;border:1px solid var(--line2);background:var(--s2);display:grid;place-items:center;color:var(--txt2)}
+.iconbtn:hover{color:var(--txt);border-color:var(--mut)}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.dow{font-size:11.5px;color:var(--mut);text-align:center;padding:2px 0 6px;letter-spacing:.5px}
+.dow.sat{color:var(--gold)}
+.cell{position:relative;min-height:86px;border-radius:10px;border:1px solid var(--line);background:var(--s1);padding:7px 8px;text-align:left;display:flex;flex-direction:column;gap:4px;color:var(--txt2)}
+.cell.out{opacity:.28}
+.cell .n{font-size:13px;font-weight:500}
+.cell.today .n{color:#16120C;background:var(--txt);border-radius:99px;width:24px;height:24px;display:grid;place-items:center;margin:-3px 0 0 -4px}
+.cell.duty{background:var(--s2);border-color:var(--line2);color:var(--txt);cursor:pointer}
+.cell.duty:hover{border-color:var(--gold)}
+.cell.duty .n{color:var(--gold2)}
+.cell.duty.today .n{color:#16120C;background:var(--gold2)}
+.cell.sel{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset;background:var(--goldbg)}
+.cell.mine::after{content:'';position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--gold2)}
+.cell.cancel{cursor:pointer}
+.cell .cnt{font-size:11.5px;color:var(--txt2);display:flex;align-items:center;gap:4px}
+.cell .marks{display:flex;gap:4px;flex-wrap:wrap;margin-top:auto}
+.dot{font-size:10.5px;border-radius:5px;padding:1px 5px;font-weight:500;white-space:nowrap}
+.dot.all{background:var(--goldbg);color:var(--gold2)}
+.dot.sub{background:var(--subbg);color:var(--sub)}
+.dot.open{background:var(--warnbg);color:var(--warn)}
+.dot.bad{background:var(--badbg);color:var(--bad)}
+.dot.x{background:var(--s3);color:var(--mut)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--mut)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+@media (max-width:640px){
+  .cal{gap:4px}
+  .cell{min-height:58px;padding:5px;border-radius:8px;align-items:center;text-align:center}
+  .cell .cnt{display:none}
+  .cell .marks{justify-content:center;margin-top:auto}
+  .dot{font-size:0;width:6px;height:6px;padding:0;border-radius:50%}
+  .dot.all{background:var(--gold2)} .dot.sub{background:var(--sub)} .dot.open{background:var(--warn)} .dot.bad{background:var(--bad)} .dot.x{background:var(--mut)}
+  .cell.mine::after{top:4px;right:4px;width:5px;height:5px}
+  .cell.today .n{margin:0}
+}
+/* รายละเอียดวัน */
+.dhead .d{font-size:19px;font-weight:600}
+.people{display:grid;gap:8px;margin-top:14px}
+.p{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--s2);width:100%;text-align:left;color:var(--txt)}
+.p:hover{border-color:var(--line2)}
+.p.mine{border-color:var(--goldline)}
+.pn{flex:1;min-width:0}
+.pn .n{font-weight:500}
+.pn .s{font-size:12.5px;color:var(--mut);overflow-wrap:anywhere;margin-top:1px}
+.pn .s s{color:var(--mut)}
+.subtag{color:var(--sub);font-size:11.5px;font-weight:500;margin-left:6px}
+.grp{font-size:11.5px;color:var(--mut);letter-spacing:1px;text-transform:uppercase;margin:14px 0 -4px}
+/* ตาราง */
 table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:center}
-th{font-size:12.5px;color:var(--mut);font-weight:600;background:#FAFBFD;position:sticky;top:0}
+th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:center}
+th{font-size:12px;color:var(--mut);font-weight:500;letter-spacing:.3px;background:var(--s1);position:sticky;top:0}
 td:first-child,th:first-child{text-align:left}
 tbody tr{cursor:pointer}
-tbody tr:hover{background:#F8F9FC}
-.tablewrap{overflow-x:auto;border-radius:var(--r)}
-.num0{color:#C3C7D2}
+tbody tr:hover{background:var(--s2)}
+.tablewrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--line)}
+.num0{color:#4A4740}
 .hist{display:grid;gap:8px}
-.h{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:#fff;box-shadow:var(--sh)}
+.h{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:var(--s1);border:1px solid var(--line)}
 .h .w{flex:1;min-width:0}
-.h .m{font-size:12.5px;color:var(--mut);overflow-wrap:anywhere}
-.badge{font-size:11.5px;border-radius:6px;padding:1px 7px;font-weight:600;white-space:nowrap}
-.b-done{background:var(--subbg);color:var(--sub)}
-.b-open{background:var(--warnbg);color:#C2410C}
-.b-cancel,.b-replaced{background:var(--graybg);color:var(--gray)}
+.h .m{font-size:12.5px;color:var(--mut);overflow-wrap:anywhere;margin-top:2px}
 .empty{color:var(--mut);text-align:center;padding:30px 10px}
-.foot{color:var(--gray);font-size:12px;text-align:center;margin-top:30px}
+.foot{color:var(--mut);font-size:12px;text-align:center;margin-top:34px;opacity:.8}
+/* ฟอร์ม */
+label.f{display:block;font-size:12.5px;color:var(--txt2);margin:12px 0 5px;font-weight:500}
+.in{width:100%;border:1px solid var(--line2);border-radius:9px;padding:10px 12px;background:var(--bg);color:var(--txt)}
+.in::placeholder{color:#5C574F}
+.in:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--goldbg)}
+select.in{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--mut) 50%),linear-gradient(135deg,var(--mut) 50%,transparent 50%);background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0 14px}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--txt2);margin-top:12px}
+.chk input{accent-color:var(--gold);width:16px;height:16px}
+/* login */
+.login{min-height:calc(100dvh - 80px);display:grid;place-items:center;padding:20px}
+.login .box{width:100%;max-width:380px}
+.login .mark{width:52px;height:52px;font-size:15px;border-radius:12px;margin-bottom:18px}
+.login h1{font-size:22px;font-weight:600;margin:0 0 4px}
+.err{color:var(--bad);font-size:13px;margin-top:10px;min-height:18px}
 /* modal */
-.ov{position:fixed;inset:0;background:rgba(15,18,35,.45);z-index:50;display:flex;align-items:flex-end;justify-content:center}
-.sheet{background:#fff;width:100%;max-width:560px;max-height:92dvh;border-radius:18px 18px 0 0;display:flex;flex-direction:column;animation:up .18s ease-out}
-@keyframes up{from{transform:translateY(30px);opacity:.4}}
-.sheet header{padding:14px 16px 8px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
-.sheet header h3{margin:0;font-size:17px;flex:1}
-.sheet .body{padding:12px 16px;overflow-y:auto;flex:1}
-.sheet footer{padding:10px 16px calc(env(safe-area-inset-bottom) + 12px);display:flex;gap:8px;border-top:1px solid var(--line)}
-.sheet footer .btn{flex:1;padding:12px}
-.x{background:var(--graybg);border:0;border-radius:99px;width:32px;height:32px}
-label.f{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
-.in{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}
-.in:focus{outline:2px solid #B9C2EA;border-color:#8E9AD6}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--s1);border:1px solid var(--line2);width:100%;max-width:560px;max-height:92dvh;border-radius:16px 16px 0 0;display:flex;flex-direction:column;animation:up .18s ease-out}
+@keyframes up{from{transform:translateY(24px);opacity:.4}}
+.sheet header{padding:16px 18px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.sheet header h3{margin:0;font-size:16px;font-weight:600;flex:1}
+.sheet .body{padding:14px 18px;overflow-y:auto;flex:1}
+.sheet footer{padding:12px 18px calc(env(safe-area-inset-bottom) + 14px);display:flex;gap:8px;border-top:1px solid var(--line)}
+.sheet footer .btn{flex:1;padding:11px}
 .opts{display:grid;gap:6px}
-.opt{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:8px 10px;background:#fff;text-align:left;width:100%}
-.opt.on{border-color:var(--navy);background:#F2F4FB}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:var(--s2);text-align:left;width:100%;color:var(--txt)}
+.opt.on{border-color:var(--gold);background:var(--goldbg)}
 .opt .c{margin-left:auto;font-size:12px;color:var(--mut);text-align:right}
 .warnline{color:var(--warn);font-size:12px}
-.search{position:relative}
-.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px;margin-top:8px}
-.names button{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 6px;font-weight:600}
-.names button.on{border-color:var(--navy);background:var(--navy);color:#fff}
-.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 84px);transform:translateX(-50%);background:#1B1F33;color:#fff;padding:10px 16px;border-radius:12px;z-index:80;max-width:92vw;box-shadow:var(--sh);font-size:14px}
-.toast.err{background:var(--bad)}
-.loading{display:grid;place-items:center;min-height:50vh;color:var(--mut)}
-.spin{width:28px;height:28px;border:3px solid #D6DAE6;border-top-color:var(--navy);border-radius:50%;animation:sp 0.8s linear infinite;margin:0 auto 10px}
+.menu{position:absolute;right:16px;top:58px;background:var(--s2);border:1px solid var(--line2);border-radius:12px;padding:6px;min-width:230px;z-index:60;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.menu .who{padding:10px 12px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.menu button{display:flex;gap:10px;align-items:center;width:100%;background:none;border:0;padding:10px 12px;border-radius:8px;color:var(--txt);text-align:left}
+.menu button:hover{background:var(--s3)}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 86px);transform:translateX(-50%);background:var(--s3);border:1px solid var(--line2);color:var(--txt);padding:10px 16px;border-radius:10px;z-index:80;max-width:92vw;font-size:14px}
+.toast.err{border-color:rgba(217,119,106,.6);color:var(--bad)}
+.loading{display:grid;place-items:center;min-height:60vh;color:var(--mut)}
+.spin{width:26px;height:26px;border:2px solid var(--line2);border-top-color:var(--gold);border-radius:50%;animation:sp .8s linear infinite;margin:0 auto 12px}
 @keyframes sp{to{transform:rotate(360deg)}}
-.adm{display:grid;gap:12px}
-.kv{font-size:13px;color:var(--mut)}
-.staff-tb input{width:100%;border:1px solid var(--line);border-radius:8px;padding:6px 8px;min-width:90px}
-.staff-tb td{padding:4px}
-.legend{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-
-/* มือถือ: แท็บล่าง */
+.staffrow td{text-align:left}
+.pill{font-size:11px;border-radius:5px;padding:1px 6px;border:1px solid var(--line2);color:var(--txt2)}
+.pill.gold{border-color:var(--goldline);color:var(--gold2)}
+/* มือถือ */
 @media (max-width:899px){
-  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--line);padding:6px 6px calc(env(safe-area-inset-bottom) + 6px);box-shadow:0 -4px 14px rgba(20,25,50,.06)}
-  nav.tabs button{color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:1px;font-size:12px;padding:6px 2px}
-  nav.tabs button .ic{font-size:19px;line-height:1}
-  nav.tabs button.on{background:#EEF0F8;color:var(--navy)}
+  .top{backdrop-filter:none;background:var(--bg)}
+  nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(18,18,18,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:6px 6px calc(env(safe-area-inset-bottom) + 6px);justify-content:space-around}
+  nav.tabs button{flex-direction:column;gap:3px;font-size:11.5px;padding:6px 4px;flex:1}
+  nav.tabs button i.ti{font-size:21px}
+  nav.tabs button.on{background:none}
+  .acct .nm{display:none} .acct{padding:4px}
+  .logo small{display:none}
 }
 @media (min-width:900px){
-  nav.tabs{justify-content:center;padding:0 16px 10px}
-  nav.tabs button{flex:none;padding:8px 22px}
-  nav.tabs .ic{margin-right:6px}
-  .top{padding-left:max(16px,calc(50vw - 574px));padding-right:max(16px,calc(50vw - 574px))}
-  .home{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:start}
-  .home h2:first-child{margin-top:4px}
-  .grid.days{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
   .ov{align-items:center}
-  .sheet{border-radius:18px;max-height:86vh}
+  .sheet{border-radius:16px;max-height:86vh}
 }
 </style>
 </head>
 <body>
-<div class="top">
-  <div class="logo"><b>2NK</b> เวรวันเสาร์</div>
-  <div class="sp"></div>
-  <button class="me" id="meBtn" onclick="openMe()">เลือกชื่อของคุณ</button>
-  <button class="icon-btn" title="ผู้ดูแล" onclick="openAdmin()">⚙</button>
+<div class="top" id="top" style="display:none">
+  <div class="topin">
+    <div class="logo"><div class="mark">2NK</div><div>Duty Roster<small>เวรวันเสาร์</small></div></div>
+    <div class="sp"></div>
+    <nav class="tabs" id="tabs"></nav>
+    <button class="acct" id="acctBtn" onclick="toggleMenu(event)"><div class="av" id="acctAv">?</div><span class="nm" id="acctNm"></span><i class="ti ti-chevron-down muted nm"></i></button>
+  </div>
 </div>
-<nav class="tabs" id="tabs"></nav>
 <main id="app"><div class="loading"><div><div class="spin"></div>กำลังโหลด…</div></div></main>
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxOacNTG4tGdFwtELxqvnEA-kjo1rDqyAWKIXm6z89foVDzj3k6Y1ugJE3Ut9rSFdY/exec";
-const PAGE_VERSION = '2026-10-26.2';
+const PAGE_VERSION = '2026-10-27.1';
 
 /* ---------- ตัวเรียกเซิร์ฟเวอร์ ---------- */
 function call(fn, ...args){
@@ -180,26 +231,31 @@ function call(fn, ...args){
   }
   return Promise.reject(new Error('ยังไม่ได้ตั้งค่า API_URL'));
 }
+/* เรียกพร้อม token; หมดอายุ → กลับหน้าเข้าสู่ระบบ */
+function api(fn, ...args){
+  return call(fn, S.token, ...args).catch(e => {
+    if (e && e.message === 'AUTH'){ setToken('', false); showLogin('เซสชันหมดอายุ เข้าสู่ระบบอีกครั้ง'); throw new Error('เซสชันหมดอายุ'); }
+    throw e;
+  });
+}
 
 /* ---------- สถานะ ---------- */
-const LS = {
-  get(k, d){ try { const v = localStorage.getItem('duty.' + k); return v == null ? d : JSON.parse(v); } catch(e){ return d; } },
-  set(k, v){ try { localStorage.setItem('duty.' + k, JSON.stringify(v)); } catch(e){} }
+const store = {
+  get(k){ try { return localStorage.getItem('duty.' + k) || sessionStorage.getItem('duty.' + k) || ''; } catch(e){ return ''; } },
+  set(k, v, keep){ try { localStorage.removeItem('duty.' + k); sessionStorage.removeItem('duty.' + k); if (v) (keep ? localStorage : sessionStorage).setItem('duty.' + k, v); } catch(e){} }
 };
 const S = {
-  data: null, tab: LS.get('tab', 'home'), me: LS.get('me', ''), pin: LS.get('pin', ''),
-  month: '', mineOnly: false, statRange: 'year', person: '', histFilter: 'active',
-  admin: (()=>{ try { return sessionStorage.getItem('duty.admin') || ''; } catch(e){ return ''; } })()
+  token: store.get('token'), data: null, tab: 'cal', month: '', sel: '',
+  statRange: 'year', person: '', histFilter: 'active', staffEdit: null
 };
-let DEVICE = LS.get('device', '');
-if (!DEVICE){ DEVICE = 'D' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); LS.set('device', DEVICE); }
+function setToken(t, keep){ S.token = t; store.set('token', t, keep); }
 
 const STATUS = {
   present:  ['มาแล้ว', 's-present'],
   sub:      ['มาแทนแล้ว', 's-sub'],
   wait:     ['รอสแกน', 's-wait'],
   future:   ['รอวันเวร', 's-future'],
-  open:     ['หาคนแทน!', 's-open'],
+  open:     ['หาคนแทน', 's-open'],
   absent:   ['ขาด', 's-absent'],
   subabsent:['คนแทนไม่มา', 's-subabsent'],
   noscan:   ['ไม่มีข้อมูลสแกน', 's-noscan'],
@@ -211,7 +267,9 @@ const TH_DAY = ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
 const TH_DAY_FULL = ['อาทิตย์','จันทร์','อังคาร','พุธ','พฤหัสบดี','ศุกร์','เสาร์'];
 const TH_MON = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 const TH_MON_FULL = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+const pad = n => String(n).padStart(2, '0');
 function pd(s){ const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); }
+function ymd(d){ return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
 function fmtDate(s, full){
   const d = pd(s);
   return (full ? 'วัน' + TH_DAY_FULL[d.getDay()] + 'ที่ ' : TH_DAY[d.getDay()] + ' ') + d.getDate() + ' ' + (full ? TH_MON_FULL : TH_MON)[d.getMonth()] + ' ' + d.getFullYear();
@@ -223,7 +281,7 @@ function relDay(s){
   if (n === 1) return 'พรุ่งนี้';
   if (n > 1) return 'อีก ' + n + ' วัน';
   if (n === -1) return 'เมื่อวาน';
-  return n + ' วันก่อน';
+  return n * -1 + ' วันที่แล้ว';
 }
 
 /* ---------- ตัวช่วย ---------- */
@@ -236,155 +294,232 @@ function toast(msg, err){
   document.body.appendChild(t);
   setTimeout(() => t.remove(), err ? 4500 : 2600);
 }
-function errMsg(e){
-  const m = (e && e.message) || String(e);
-  if (m === 'PIN_REQUIRED') return 'PIN ไม่ถูกต้อง';
-  return m;
-}
+const errMsg = e => (e && e.message) || String(e);
 function initial(n){ const m = String(n || '').replace(/^พี่/, '').match(/[ก-ฮA-Za-z0-9]/); return esc(m ? m[0].toUpperCase() : '?'); }
+const ME = () => S.data && S.data.me;
+const isAdmin = () => !!(ME() && ME().admin);
+const isMine = p => ME() && (p.owner === ME().nick || p.actual === ME().nick);
+
+/* ---------- เข้าสู่ระบบ ---------- */
+function showLogin(msg){
+  S.data = null;
+  $('top').style.display = 'none';
+  closeMenu();
+  document.querySelectorAll('.ov').forEach(o => o.remove());
+  $('app').innerHTML = `<div class="login"><div class="box">
+    <div class="mark">2NK<\/div>
+    <div class="eyebrow">Duty Roster<\/div>
+    <h1>เข้าสู่ระบบเวรวันเสาร์<\/h1>
+    <div class="muted small">ใช้ Username และรหัสผ่านที่ได้รับจากผู้ดูแล<\/div>
+    <form onsubmit="doLogin(event)" style="margin-top:22px">
+      <label class="f">Username<\/label>
+      <input class="in" id="lgU" autocomplete="username" autocapitalize="off" spellcheck="false" required>
+      <label class="f">รหัสผ่าน<\/label>
+      <input class="in" id="lgP" type="password" autocomplete="current-password" required>
+      <label class="chk"><input type="checkbox" id="lgR" checked> จดจำการเข้าสู่ระบบในเครื่องนี้ (30 วัน)<\/label>
+      <button class="btn gold" id="lgBtn" style="width:100%;margin-top:18px;padding:12px">เข้าสู่ระบบ<\/button>
+      <div class="err" id="lgErr">${esc(msg || '')}<\/div>
+    <\/form><\/div><\/div>`;
+  setTimeout(() => $('lgU') && $('lgU').focus(), 50);
+}
+function doLogin(ev){
+  ev.preventDefault();
+  const b = $('lgBtn'); b.disabled = true; b.textContent = 'กำลังตรวจสอบ…';
+  $('lgErr').textContent = '';
+  call('login', $('lgU').value.trim(), $('lgP').value, $('lgR').checked).then(r => {
+    setToken(r.token, $('lgR').checked);
+    $('app').innerHTML = '<div class="loading"><div><div class="spin"><\/div>กำลังโหลด…<\/div><\/div>';
+    load();
+  }).catch(e => { b.disabled = false; b.textContent = 'เข้าสู่ระบบ'; $('lgErr').textContent = errMsg(e); });
+}
+function doLogout(){
+  const t = S.token;
+  setToken('', false);
+  call('logout', t).catch(() => {});
+  showLogin();
+}
 
 /* ---------- โหลดข้อมูล ---------- */
 let loading = false;
 function load(quiet){
+  if (!S.token) return showLogin();
   if (loading) return Promise.resolve();
   loading = true;
-  return call('getData', {pin: S.pin}).then(d => {
+  return api('getData').then(d => {
     S.data = d;
-    if (!S.month){ const nx = nextDay(); S.month = (nx ? nx.date : d.today).slice(0, 7); }
+    if (!S.month || !S.sel){
+      const nx = nextDay();
+      S.sel = S.sel || (nx ? nx.date : '');
+      S.month = S.month || (S.sel || d.today).slice(0, 7);
+    }
+    $('top').style.display = '';
     if (!modalOpen()) render();
   }).catch(e => {
-    if (errMsg(e) === 'PIN ไม่ถูกต้อง' || (e && e.message === 'PIN_REQUIRED')) return askPin();
-    if (!quiet || !S.data) showError(errMsg(e)); else console.warn(e);
+    if (!S.token) return;
+    if (!quiet || !S.data) $('app').innerHTML = `<div class="card empty" style="max-width:420px;margin:60px auto"><b>โหลดข้อมูลไม่ได้<\/b><br>${esc(errMsg(e))}<br><br><button class="btn gold" onclick="load()">ลองใหม่<\/button><\/div>`;
   }).finally(() => { loading = false; });
 }
-function showError(m){
-  $('app').innerHTML = `<div class="card empty"><b>โหลดข้อมูลไม่ได้<\/b><br>${esc(m)}<br><br><button class="btn" onclick="load()">ลองใหม่<\/button><\/div>`;
-}
-setInterval(() => { if (document.visibilityState === 'visible' && !modalOpen()) load(true); }, 60000);
+setInterval(() => { if (document.visibilityState === 'visible' && S.data && !modalOpen()) load(true); }, 60000);
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && S.data) load(true); });
 
 /* ---------- ข้อมูลที่ใช้บ่อย ---------- */
 function upcoming(){ return S.data.days.filter(d => d.date >= S.data.today); }
-function nextDay(){ return (S.data.days || []).filter(d => d.date >= S.data.today && !d.cancelled)[0]; }
-function myDuties(){
-  if (!S.me) return [];
-  return upcoming().filter(d => !d.cancelled && d.people.some(p => p.owner === S.me || p.actual === S.me));
+function nextDay(){ return (S.data.days || []).filter(d => d.date >= S.data.today && !d.cancelled && d.people.length)[0]; }
+function dayOf(date){ return S.data.days.find(d => d.date === date); }
+function myDuties(){ return upcoming().filter(d => !d.cancelled && d.people.some(isMine)); }
+function activeStaff(){ return S.data.staff.filter(s => s.active && !s.adminOnly); }
+
+/* ---------- เมนูบัญชี ---------- */
+function toggleMenu(ev){
+  ev.stopPropagation();
+  if ($('menu')) return closeMenu();
+  const me = ME();
+  const m = document.createElement('div');
+  m.className = 'menu'; m.id = 'menu';
+  m.innerHTML = `<div class="who"><b>${esc(me.nick)}<\/b> ${me.admin ? '<span class="pill gold">ผู้ดูแลระบบ<\/span>' : ''}<div class="muted small">${esc(me.name || '')} @${esc(me.username)}<\/div><\/div>
+    ${me.admin ? `<button onclick="closeMenu();go('staff')"><i class="ti ti-users"><\/i>จัดการพนักงานและบัญชี<\/button>
+    <button onclick="closeMenu();openSystem()"><i class="ti ti-settings"><\/i>ตั้งค่าระบบ<\/button>` : ''}
+    <button onclick="closeMenu();openChangePw()"><i class="ti ti-key"><\/i>เปลี่ยนรหัสผ่าน<\/button>
+    <button onclick="doLogout()" style="color:var(--bad)"><i class="ti ti-logout"><\/i>ออกจากระบบ<\/button>`;
+  m.addEventListener('click', e => e.stopPropagation());
+  $('top').querySelector('.topin').appendChild(m);
 }
-function activeStaff(){ return S.data.staff.filter(s => s.active); }
+function closeMenu(){ const m = $('menu'); if (m) m.remove(); }
+document.addEventListener('click', closeMenu);
 
 /* ---------- แท็บ ---------- */
-const TABS = [['home','🏠','หน้าแรก'],['roster','📅','ตารางเวร'],['stats','📊','สรุปรายคน'],['hist','🔁','ประวัติแทน']];
-function renderTabs(){
-  $('tabs').innerHTML = TABS.map(t => `<button class="${S.tab === t[0] ? 'on' : ''}" onclick="go('${t[0]}')"><span class="ic">${t[1]}<\/span>${t[2]}<\/button>`).join('');
+function tabs(){
+  const t = [['cal','ti-calendar-event','ปฏิทินเวร'],['stats','ti-chart-bar','สรุปรายคน'],['hist','ti-arrows-exchange','ประวัติแทน']];
+  if (isAdmin()) t.push(['staff','ti-users','พนักงาน']);
+  return t;
 }
-function go(t){ S.tab = t; LS.set('tab', t); render(); window.scrollTo(0, 0); }
-
+function go(t){ S.tab = t; render(); window.scrollTo(0, 0); }
 function render(){
-  renderTabs();
-  $('meBtn').textContent = S.me ? '👤 ' + S.me : 'เลือกชื่อของคุณ';
   if (!S.data) return;
-  const v = {home: viewHome, roster: viewRoster, stats: viewStats, hist: viewHist}[S.tab] || viewHome;
+  if (S.tab === 'staff' && !isAdmin()) S.tab = 'cal';
+  $('tabs').innerHTML = tabs().map(t => `<button class="${S.tab === t[0] ? 'on' : ''}" onclick="go('${t[0]}')"><i class="ti ${t[1]}"><\/i>${t[2]}<\/button>`).join('');
+  $('acctAv').innerHTML = initial(ME().nick);
+  $('acctNm').textContent = ME().nick;
+  const v = {cal: viewCal, stats: viewStats, hist: viewHist, staff: viewStaff}[S.tab] || viewCal;
   $('app').innerHTML = v() + footer();
 }
 function footer(){
   const d = S.data;
   const sync = d.lastSync ? new Date(d.lastSync).toLocaleString('th-TH', {dateStyle:'short', timeStyle:'short'}) : '-';
-  return `<div class="foot">ดึงแพลนจากไฟล์ต้นฉบับล่าสุด ${esc(sync)} · หน้าเว็บ ${PAGE_VERSION} · เซิร์ฟเวอร์ ${esc(d.version)}${S.admin ? ' · 🔓 โหมดผู้ดูแล' : ''}<\/div>`;
+  return `<div class="foot">ดึงแพลนจากไฟล์ต้นฉบับล่าสุด ${esc(sync)} · หน้าเว็บ ${PAGE_VERSION} · เซิร์ฟเวอร์ ${esc(d.version)}<\/div>`;
 }
 
-/* ---------- การ์ดวันเวร ---------- */
+/* ---------- ปฏิทิน (หน้าแรก) ---------- */
+function viewCal(){
+  const mine = myDuties();
+  let banner = '';
+  if (mine.length){
+    const m = mine[0];
+    const p = m.people.find(isMine);
+    const isSub = p.actual === ME().nick && p.owner !== ME().nick;
+    const gave = p.owner === ME().nick && p.actual && p.actual !== ME().nick;
+    banner = `<div class="banner"><i class="ti ti-calendar-star" style="font-size:22px;color:var(--gold2)"><\/i><div class="t">
+      <div class="eyebrow" style="color:var(--gold)">${isSub ? 'คุณรับแทนเวร' : (gave ? 'เวรของคุณมีคนแทนแล้ว' : 'เวรถัดไปของคุณ')}<\/div>
+      <div style="margin-top:2px"><b>${fmtDate(m.date, true)}<\/b> <span class="muted">· ${relDay(m.date)}<\/span>${isSub ? ' · แทน ' + esc(p.owner) : ''}${gave ? ' · ' + esc(p.actual) + ' มาแทน' : ''}${p.status === 'open' ? ' · <span style="color:var(--warn)">ยังหาคนแทนไม่ได้<\/span>' : ''}<\/div><\/div>
+      <button class="btn sm" onclick="pickDay('${m.date}')">ดูรายละเอียด<\/button><\/div>`;
+  }
+  const opens = [];
+  upcoming().forEach(day => day.people.forEach(p => { if (p.status === 'open') opens.push([day, p]); }));
+  const openBox = opens.length ? `<div class="card" style="margin-top:16px;border-color:rgba(217,165,74,.4)"><h2><i class="ti ti-hand-stop" style="color:var(--warn)"><\/i> ต้องการคนแทน (${opens.length})<\/h2>
+    <div class="hist">${opens.map(([day, p]) => `<div class="h" style="background:var(--s2)"><div class="w"><b>${fmtDate(day.date)}<\/b> · ${esc(p.owner)} มาไม่ได้${p.swap.reason ? '<div class="m">' + esc(p.swap.reason) + '<\/div>' : ''}<\/div>
+      <button class="btn gold sm" onclick="openTake('${p.swap.id}')">ฉันไปแทนเอง<\/button><\/div>`).join('')}<\/div><\/div>` : '';
+  return `${banner}<div class="home"><div><div class="card">${calendar()}<\/div>${openBox}<\/div><div class="detail" id="detail">${detailPanel()}<\/div><\/div>`;
+}
+function calendar(){
+  const [y, m] = S.month.split('-').map(Number);
+  const first = new Date(y, m - 1, 1);
+  const start = new Date(first); start.setDate(1 - ((first.getDay() + 6) % 7));
+  const map = {};
+  S.data.days.forEach(d => { map[d.date] = d; });
+  const cells = [];
+  for (let i = 0; i < 42; i++){
+    const d = new Date(start); d.setDate(start.getDate() + i);
+    if (i >= 35 && d.getMonth() !== m - 1) break;
+    const k = ymd(d), day = map[k], out = d.getMonth() !== m - 1;
+    const cls = ['cell'];
+    if (out) cls.push('out');
+    if (k === S.data.today) cls.push('today');
+    let inner = `<span class="n">${d.getDate()}<\/span>`;
+    if (day){
+      cls.push(day.cancelled ? 'cancel' : 'duty');
+      if (k === S.sel) cls.push('sel');
+      if (!day.cancelled && day.people.some(isMine)) cls.push('mine');
+      const subs = day.people.filter(p => p.swap && p.swap.status === 'แทนแล้ว').length;
+      const open = day.people.filter(p => p.status === 'open').length;
+      const bad = day.people.filter(p => p.status === 'absent' || p.status === 'subabsent').length;
+      const marks = day.cancelled ? '<span class="dot x">ยกเลิก<\/span>' :
+        (day.all ? '<span class="dot all">ทั้งหมด<\/span>' : '') + (subs ? `<span class="dot sub">แทน ${subs}<\/span>` : '') +
+        (open ? `<span class="dot open">หาคน ${open}<\/span>` : '') + (bad ? `<span class="dot bad">ขาด ${bad}<\/span>` : '');
+      inner += (day.people.length && !day.cancelled ? `<span class="cnt"><i class="ti ti-users" style="font-size:13px"><\/i>${day.people.length} คน<\/span>` : '') + `<span class="marks">${marks}<\/span>`;
+    }
+    cells.push(day ? `<button class="${cls.join(' ')}" onclick="pickDay('${k}')">${inner}<\/button>` : `<div class="${cls.join(' ')}">${inner}<\/div>`);
+  }
+  const dows = ['จ.','อ.','พ.','พฤ.','ศ.','ส.','อา.'].map((x, i) => `<div class="dow${i === 5 ? ' sat' : ''}">${x}<\/div>`).join('');
+  return `<div class="calhead">
+      <div class="m">${TH_MON_FULL[m - 1]} <span class="y">${y}<\/span><\/div><div class="sp"><\/div>
+      <button class="btn sm ghost" onclick="calToday()">วันนี้<\/button>
+      <button class="iconbtn" aria-label="เดือนก่อน" onclick="calMove(-1)"><i class="ti ti-chevron-left"><\/i><\/button>
+      <button class="iconbtn" aria-label="เดือนถัดไป" onclick="calMove(1)"><i class="ti ti-chevron-right"><\/i><\/button>
+    <\/div>
+    <div class="cal">${dows}${cells.join('')}<\/div>
+    <div class="legend"><span><span class="dot all"><\/span>เข้าทั้งหมด<\/span><span><span class="dot sub"><\/span>มีคนแทน<\/span><span><span class="dot open"><\/span>หาคนแทน<\/span><span><span class="dot bad"><\/span>ขาด<\/span><span><span style="width:7px;height:7px;border-radius:50%;background:var(--gold2);display:inline-block"><\/span>เวรของคุณ<\/span><\/div>`;
+}
+function calMove(n){ const [y, m] = S.month.split('-').map(Number); const d = new Date(y, m - 1 + n, 1); S.month = d.getFullYear() + '-' + pad(d.getMonth() + 1); render(); }
+function calToday(){ S.month = S.data.today.slice(0, 7); const nx = nextDay(); if (nx) S.sel = nx.date; render(); }
+function pickDay(k){
+  S.sel = k; S.month = k.slice(0, 7);
+  if (S.tab !== 'cal') S.tab = 'cal';
+  render();
+  if (window.innerWidth < 980){ const el = $('detail'); if (el) el.scrollIntoView({behavior:'smooth', block:'start'}); }
+}
+
 function personRow(day, p){
   const st = STATUS[p.status] || ['', ''];
-  const mine = S.me && (p.owner === S.me || p.actual === S.me);
   let name, sub;
   if (p.swap && p.swap.status === 'แทนแล้ว'){
-    name = `${esc(p.actual)}<span class="subtag">แทน<\/span>`;
+    name = `${esc(p.actual)}<span class="subtag"><i class="ti ti-arrows-exchange" style="font-size:13px"><\/i> แทน<\/span>`;
     sub = `เจ้าของเวร <s>${esc(p.owner)}<\/s>${p.swap.reason ? ' · ' + esc(p.swap.reason) : ''}`;
   } else if (p.status === 'open'){
     name = esc(p.owner);
-    sub = `แจ้งไม่มา — ยังไม่มีคนแทน${p.swap.reason ? ' · ' + esc(p.swap.reason) : ''}`;
-  } else {
-    name = esc(p.owner);
-    sub = '';
-  }
+    sub = `แจ้งไม่มา ยังไม่มีคนแทน${p.swap.reason ? ' · ' + esc(p.swap.reason) : ''}`;
+  } else { name = esc(p.owner); sub = ''; }
   if (p.scan && p.scan.in) sub += (sub ? ' · ' : '') + `สแกน ${esc(p.scan.in)}${p.scan.out ? '–' + esc(p.scan.out) : ''}`;
-  return `<button class="p${mine ? ' mine' : ''}" onclick="openPerson('${day.date}','${esc(p.owner)}')">
+  return `<button class="p${isMine(p) ? ' mine' : ''}" onclick="openPerson('${day.date}','${esc(p.owner)}')">
     <div class="av${p.group === '2' ? ' g2' : (p.group === '0' ? ' g0' : '')}">${initial(p.actual || p.owner)}<\/div>
     <div class="pn"><div class="n">${name}<\/div>${sub ? `<div class="s">${sub}<\/div>` : ''}<\/div>
     <span class="st ${st[1]}">${st[0]}<\/span><\/button>`;
 }
-function dayCard(day, opts){
-  opts = opts || {};
-  const cnt = {};
-  day.people.forEach(p => { cnt[p.status] = (cnt[p.status] || 0) + 1; });
+function detailPanel(){
+  const day = S.sel && dayOf(S.sel);
+  if (!day) return `<div class="card empty"><i class="ti ti-calendar" style="font-size:28px"><\/i><br>เลือกวันที่มีเวรในปฏิทิน<\/div>`;
   const subs = day.people.filter(p => p.swap && p.swap.status === 'แทนแล้ว').length;
-  const open = cnt.open || 0;
-  const people = opts.mine && S.me ? day.people.filter(p => p.owner === S.me || p.actual === S.me) : day.people;
-  return `<div class="card${opts.hero ? ' hero' : ''}${opts.mini ? ' mini' : ''}">
-    <div class="dayhead">
-      <div><div class="d">${fmtDate(day.date, opts.hero)}<\/div><div class="rel">${relDay(day.date)} · ${day.people.length} คน${day.dept ? ' · ' + esc(day.dept) : ''}<\/div><\/div>
-      <div class="counts">
-        ${day.cancelled ? '<span class="tag t-cancel">ยกเลิกเวร<\/span>' : ''}
-        ${day.all ? '<span class="tag t-all">เข้าทั้งหมด<\/span>' : ''}
-        ${subs ? `<span class="tag" style="background:var(--subbg);color:var(--sub)">แทน ${subs}<\/span>` : ''}
-        ${open ? `<span class="tag" style="background:var(--warnbg);color:#C2410C">หาคนแทน ${open}<\/span>` : ''}
+  const open = day.people.filter(p => p.status === 'open').length;
+  const groups = {};
+  day.people.forEach(p => { (groups[p.group] = groups[p.group] || []).push(p); });
+  const gname = {'0':'ฝ่ายอื่น','1':'กลุ่ม 1','2':'กลุ่ม 2'};
+  const multi = Object.keys(groups).length > 1;
+  const list = Object.keys(groups).sort((a, b) => (a === '0') - (b === '0') || a - b).map(g =>
+    (multi ? `<div class="grp">${gname[g] || 'กลุ่ม ' + esc(g)}<\/div>` : '') + groups[g].map(p => personRow(day, p)).join('')).join('');
+  return `<div class="card">
+    <div class="dhead"><div class="eyebrow">${relDay(day.date)}${day.dept ? ' · ' + esc(day.dept) : ''}<\/div>
+      <div class="d" style="margin-top:4px">${fmtDate(day.date, true)}<\/div>
+      <div class="row" style="margin-top:10px">
+        ${day.cancelled ? '<span class="tag bad">ยกเลิกเวร<\/span>' : `<span class="tag"><i class="ti ti-users" style="font-size:14px"><\/i>${day.people.length} คน<\/span>`}
+        ${day.all ? '<span class="tag gold">เข้าทั้งหมด<\/span>' : ''}
+        ${subs ? `<span class="tag sub">มีคนแทน ${subs}<\/span>` : ''}
+        ${open ? `<span class="tag warn">หาคนแทน ${open}<\/span>` : ''}
+        ${day.hasScan ? '<span class="tag"><i class="ti ti-fingerprint" style="font-size:14px"><\/i>มีข้อมูลสแกน<\/span>' : ''}
       <\/div>
+      ${day.note ? `<div class="small t2" style="margin-top:10px"><i class="ti ti-note" style="font-size:15px"><\/i> ${esc(day.note)}<\/div>` : ''}
     <\/div>
-    ${day.note ? `<div style="margin-top:6px"><span class="tag t-note">📝 ${esc(day.note)}<\/span><\/div>` : ''}
-    ${people.length ? `<div class="people">${people.map(p => personRow(day, p)).join('')}<\/div>` : (day.cancelled ? '' : '<div class="empty">ไม่มีรายชื่อ<\/div>')}
+    ${day.people.length ? `<div class="people">${list}<\/div>` : (day.cancelled ? '' : '<div class="empty">ไม่มีรายชื่อในแพลน<\/div>')}
+    ${!day.cancelled && day.people.length && day.date >= S.data.today ? '<div class="muted small" style="margin-top:12px">กดที่ชื่อเพื่อแจ้งมาไม่ได้ / หาคนแทน / ดูรายละเอียด<\/div>' : ''}
   <\/div>`;
-}
-
-/* ---------- หน้าแรก ---------- */
-function viewHome(){
-  const d = S.data;
-  const nx = nextDay();
-  const mine = myDuties();
-  let banner = '';
-  if (!S.me){
-    banner = `<div class="banner"><div class="t">👋 เลือกชื่อของคุณก่อน จะได้เห็นเวรของตัวเองและบันทึกการแทนได้<\/div><button class="btn warn" onclick="openMe()">เลือกชื่อ<\/button><\/div>`;
-  } else if (mine.length){
-    const m = mine[0];
-    const p = m.people.find(x => x.owner === S.me || x.actual === S.me);
-    const isSub = p.actual === S.me && p.owner !== S.me;
-    const gave = p.owner === S.me && p.actual && p.actual !== S.me;
-    banner = `<div class="banner"><div class="t"><b>${isSub ? 'คุณรับแทนเวร' : (gave ? 'เวรของคุณมีคนแทนแล้ว' : 'เวรถัดไปของคุณ')}<\/b><br>
-      ${fmtDate(m.date)} (${relDay(m.date)})${isSub ? ' แทน ' + esc(p.owner) : ''}${gave ? ' — ' + esc(p.actual) + ' มาแทน' : ''}${p.status === 'open' ? ' — ยังหาคนแทนไม่ได้' : ''}<\/div>
-      ${!isSub && !gave && p.status !== 'open' ? `<button class="btn warn" onclick="openSwap('${m.date}','${esc(S.me)}')">ฉันมาไม่ได้<\/button>` : ''}<\/div>`;
-  }
-  const opens = [];
-  upcoming().forEach(day => day.people.forEach(p => { if (p.status === 'open') opens.push([day, p]); }));
-  const openBox = opens.length ? `<h2>🙋 ต้องการคนแทน (${opens.length})<\/h2><div class="grid">${opens.map(([day, p]) =>
-    `<div class="card row" style="justify-content:space-between"><div><b>${fmtDate(day.date)}<\/b> · ${esc(p.owner)} มาไม่ได้${p.swap.reason ? '<div class="kv">' + esc(p.swap.reason) + '<\/div>' : ''}<\/div>
-     <button class="btn ok" onclick="openTake('${p.swap.id}')">ฉันไปแทนเอง<\/button><\/div>`).join('')}<\/div>` : '';
-  const later = upcoming().filter(x => !nx || x.date !== nx.date).slice(0, 4);
-  return `${banner}<div class="home"><div>
-      <h2>${nx && nx.date === d.today ? '📍 เวรวันนี้' : '📍 เวรครั้งถัดไป'}<\/h2>
-      ${nx ? dayCard(nx, {hero: true}) : '<div class="card empty">ยังไม่มีเวรที่กำลังจะถึงในแพลน<\/div>'}
-      ${openBox}
-    <\/div><div>
-      <h2>ถัดจากนั้น<\/h2>
-      <div class="grid">${later.length ? later.map(x => dayCard(x, {mini: true})).join('') : '<div class="card empty">-<\/div>'}<\/div>
-      <div style="margin-top:10px;text-align:right"><button class="btn sec" onclick="go('roster')">ดูตารางเวรทั้งหมด →<\/button><\/div>
-    <\/div><\/div>`;
-}
-
-/* ---------- ตารางเวร ---------- */
-function viewRoster(){
-  const days = S.data.days;
-  const months = [...new Set(days.map(d => d.date.slice(0, 7)))];
-  if (months.indexOf(S.month) < 0) S.month = months[months.length - 1] || '';
-  const list = days.filter(d => d.date.slice(0, 7) === S.month)
-    .filter(d => !S.mineOnly || !S.me || d.people.some(p => p.owner === S.me || p.actual === S.me));
-  const mlabel = m => { const [y, mo] = m.split('-').map(Number); return TH_MON[mo - 1] + ' ' + String(y).slice(2); };
-  setTimeout(() => { const on = document.querySelector('.months .on'); if (on) on.scrollIntoView({inline:'center', block:'nearest'}); }, 0);
-  return `<div class="months">${months.map(m => `<button class="${m === S.month ? 'on' : ''}" onclick="S.month='${m}';render()">${mlabel(m)}<\/button>`).join('')}<\/div>
-    <div class="row" style="justify-content:space-between;margin:2px 2px 10px">
-      <h2 style="margin:0">${(()=>{ const [y, mo] = S.month.split('-').map(Number); return TH_MON_FULL[mo - 1] + ' ' + y; })()}<\/h2>
-      ${S.me ? `<label class="chk"><input type="checkbox" ${S.mineOnly ? 'checked' : ''} onchange="S.mineOnly=this.checked;render()"> เฉพาะเวรของฉัน<\/label>` : ''}
-    <\/div>
-    <div class="grid days">${list.length ? list.map(d => dayCard(d, {mine: S.mineOnly})).join('') : '<div class="card empty">ไม่มีเวรในเดือนนี้<\/div>'}<\/div>
-    <div class="legend">${Object.keys(STATUS).map(k => `<span class="st ${STATUS[k][1]}" style="animation:none">${STATUS[k][0]}<\/span>`).join('')}<\/div>`;
 }
 
 /* ---------- สรุปรายคน ---------- */
@@ -392,13 +527,13 @@ function statRange(){
   const t = S.data.today, y = t.slice(0, 4), m = t.slice(0, 7);
   if (S.statRange === 'month') return [m + '-01', m + '-31', 'เดือนนี้'];
   if (S.statRange === 'prev'){ const d = pd(m + '-01'); d.setMonth(d.getMonth() - 1);
-    const pm = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'); return [pm + '-01', pm + '-31', 'เดือนก่อน']; }
+    const pm = d.getFullYear() + '-' + pad(d.getMonth() + 1); return [pm + '-01', pm + '-31', 'เดือนก่อน']; }
   if (S.statRange === 'all') return ['0000', '9999', 'ทั้งหมด'];
   return [y + '-01-01', y + '-12-31', 'ปี ' + y];
 }
 function computeStats(from, to){
   const st = {};
-  const get = n => st[n] || (st[n] = {nick: n, plan: 0, gave: 0, covered: 0, came: 0, absent: 0, open: 0, nodata: 0, upcoming: 0, rows: []});
+  const get = n => st[n] || (st[n] = {nick: n, plan: 0, gave: 0, covered: 0, came: 0, absent: 0, nodata: 0, upcoming: 0, rows: []});
   S.data.days.forEach(d => {
     if (d.date < from || d.date > to || d.cancelled) return;
     d.people.forEach(p => {
@@ -406,7 +541,6 @@ function computeStats(from, to){
       o.plan++;
       o.rows.push({d, p, role: p.actual === p.owner ? 'own' : 'gave'});
       if (p.swap && p.swap.status === 'แทนแล้ว') o.gave++;
-      if (p.status === 'open') o.open++;
       if (p.actual && p.actual !== p.owner){ const s = get(p.actual); s.covered++; s.rows.push({d, p, role: 'sub'}); }
       if (p.actual){
         const a = get(p.actual);
@@ -417,7 +551,7 @@ function computeStats(from, to){
       }
     });
   });
-  S.data.staff.forEach(s => { if (s.active) get(s.nick); });
+  activeStaff().forEach(s => get(s.nick));
   return Object.values(st).sort((a, b) => (b.plan + b.covered) - (a.plan + a.covered) || a.nick.localeCompare(b.nick, 'th'));
 }
 function viewStats(){
@@ -430,39 +564,93 @@ function viewStats(){
     const r = rows.find(x => x.nick === S.person);
     if (r){
       const ord = r.rows.slice().sort((a, b) => b.d.date.localeCompare(a.d.date));
-      detail = `<h2>👤 ${esc(r.nick)} · ${label}<\/h2><div class="hist">${ord.map(x => {
+      detail = `<h2 style="margin-top:22px">${esc(r.nick)} · ${label}<\/h2><div class="hist">${ord.map(x => {
         const st = STATUS[x.p.status] || ['', ''];
         const role = x.role === 'sub' ? `ไปแทน ${esc(x.p.owner)}` : (x.role === 'gave' ? (x.p.actual ? `${esc(x.p.actual)} มาแทน` : 'แจ้งไม่มา') : 'เวรของตัวเอง');
-        const shown = x.role === 'gave' ? '' : `<span class="st ${st[1]}" style="animation:none">${st[0]}<\/span>`;
-        return `<div class="h"><div class="w"><b>${fmtDate(x.d.date)}<\/b><div class="m">${role}${x.p.scan && x.p.scan.in && x.role !== 'gave' ? ' · สแกน ' + esc(x.p.scan.in) : ''}<\/div><\/div>${shown}<\/div>`;
+        const shown = x.role === 'gave' ? '' : `<span class="st ${st[1]}">${st[0]}<\/span>`;
+        return `<div class="h" style="cursor:pointer" onclick="pickDay('${x.d.date}')"><div class="w"><b>${fmtDate(x.d.date)}<\/b><div class="m">${role}${x.p.scan && x.p.scan.in && x.role !== 'gave' ? ' · สแกน ' + esc(x.p.scan.in) : ''}<\/div><\/div>${shown}<\/div>`;
       }).join('') || '<div class="card empty">ไม่มีรายการ<\/div>'}<\/div>`;
     }
   }
-  return `<div class="row" style="justify-content:space-between"><h2>📊 สรุปรายคน · ${label}<\/h2>
-      <div class="row">${ranges.map(r => `<button class="btn ${S.statRange === r[0] ? '' : 'sec'}" style="padding:6px 12px" onclick="S.statRange='${r[0]}';render()">${r[1]}<\/button>`).join('')}<\/div><\/div>
-    <div class="card" style="padding:0"><div class="tablewrap"><table>
+  return `<div class="row" style="justify-content:space-between;margin-bottom:14px"><div><div class="eyebrow">สรุปรายคน<\/div><div style="font-size:19px;font-weight:600;margin-top:2px">${label}<\/div><\/div>
+      <div class="seg">${ranges.map(r => `<button class="${S.statRange === r[0] ? 'on' : ''}" onclick="S.statRange='${r[0]}';render()">${r[1]}<\/button>`).join('')}<\/div><\/div>
+    <div class="tablewrap"><table>
       <thead><tr><th>ชื่อ<\/th><th>เวรตามแพลน<\/th><th>ให้คนอื่นแทน<\/th><th>ไปแทนคนอื่น<\/th><th>มาแล้ว<\/th><th>ขาด<\/th><th>รอวันเวร<\/th><th>ไม่มีข้อมูลสแกน<\/th><\/tr><\/thead>
-      <tbody>${rows.map(r => `<tr onclick="S.person='${esc(r.nick)}';render();setTimeout(()=>window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}),30)" style="${S.person === r.nick ? 'background:#EEF0F8' : ''}">
-        <td><b>${esc(r.nick)}<\/b><\/td><td>${n(r.plan)}<\/td><td>${n(r.gave)}<\/td><td>${n(r.covered)}<\/td>
+      <tbody>${rows.map(r => `<tr onclick="S.person='${esc(r.nick)}';render();setTimeout(()=>window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'}),30)" style="${S.person === r.nick ? 'background:var(--goldbg)' : ''}">
+        <td><b style="font-weight:500">${esc(r.nick)}<\/b><\/td><td>${n(r.plan)}<\/td><td>${n(r.gave)}<\/td><td>${n(r.covered)}<\/td>
         <td style="color:var(--ok)">${n(r.came)}<\/td><td style="color:var(--bad)">${n(r.absent)}<\/td><td>${n(r.upcoming)}<\/td><td>${n(r.nodata)}<\/td><\/tr>`).join('')}<\/tbody>
-    <\/table><\/div><\/div>
-    <div class="kv" style="margin-top:6px">กดที่ชื่อเพื่อดูรายละเอียด · "ขาด" นับเฉพาะวันที่มีข้อมูลสแกนนิ้วแล้วแต่ไม่พบคนนั้น<\/div>
+    <\/table><\/div>
+    <div class="muted small" style="margin-top:8px">กดที่ชื่อเพื่อดูรายละเอียด · "ขาด" นับเฉพาะวันที่มีข้อมูลสแกนนิ้วแล้วแต่ไม่พบคนนั้น<\/div>
     ${detail}`;
 }
 
 /* ---------- ประวัติแทน ---------- */
 function viewHist(){
-  const all = S.data.swaps;
-  const f = S.histFilter;
-  const list = all.filter(s => f === 'all' || (f === 'active' ? (s.status === 'แทนแล้ว' || s.status === 'หาคนแทน') : (s.owner === S.me || s.sub === S.me || s.by === S.me)));
-  const cls = {'แทนแล้ว':'b-done','หาคนแทน':'b-open','ยกเลิก':'b-cancel','ถูกแทนที่':'b-replaced'};
+  const f = S.histFilter, me = ME().nick;
+  const list = S.data.swaps.filter(s => f === 'all' || (f === 'active' ? (s.status === 'แทนแล้ว' || s.status === 'หาคนแทน') : (s.owner === me || s.sub === me || s.by === me)));
+  const cls = {'แทนแล้ว':'sub','หาคนแทน':'warn','ยกเลิก':'','ถูกแทนที่':''};
   const fl = [['active','ที่ใช้อยู่'],['mine','ของฉัน'],['all','ทั้งหมด']];
-  return `<div class="row" style="justify-content:space-between"><h2>🔁 ประวัติการแทนเวร<\/h2>
-    <div class="row">${fl.map(x => `<button class="btn ${f === x[0] ? '' : 'sec'}" style="padding:6px 12px" onclick="S.histFilter='${x[0]}';render()">${x[1]}<\/button>`).join('')}<\/div><\/div>
-    <div class="hist">${list.length ? list.map(s => `<div class="h">
-      <div class="w"><b>${fmtDate(s.date)}<\/b> · ${esc(s.owner)} → ${s.sub ? esc(s.sub) : '<i>ยังไม่มีคนแทน<\/i>'}
+  return `<div class="row" style="justify-content:space-between;margin-bottom:14px"><div><div class="eyebrow">ประวัติ<\/div><div style="font-size:19px;font-weight:600;margin-top:2px">การแทนเวร<\/div><\/div>
+    <div class="seg">${fl.map(x => `<button class="${f === x[0] ? 'on' : ''}" onclick="S.histFilter='${x[0]}';render()">${x[1]}<\/button>`).join('')}<\/div><\/div>
+    <div class="hist">${list.length ? list.map(s => `<div class="h" style="cursor:pointer" onclick="pickDay('${s.date}')">
+      <div class="w"><b style="font-weight:500">${fmtDate(s.date)}<\/b> <span class="t2">· ${esc(s.owner)} <i class="ti ti-arrow-right" style="font-size:14px"><\/i> ${s.sub ? esc(s.sub) : '<i>ยังไม่มีคนแทน<\/i>'}<\/span>
         <div class="m">${s.reason ? esc(s.reason) + ' · ' : ''}บันทึกโดย ${esc(s.by)} ${esc(s.at)}${s.editAt ? ' · ' + esc(s.status) + ' โดย ' + esc(s.editBy || '-') + ' ' + esc(s.editAt) : ''}<\/div><\/div>
-      <span class="badge ${cls[s.status] || ''}">${esc(s.status)}<\/span><\/div>`).join('') : '<div class="card empty">ยังไม่มีรายการ<\/div>'}<\/div>`;
+      <span class="tag ${cls[s.status] || ''}">${esc(s.status)}<\/span><\/div>`).join('') : '<div class="card empty">ยังไม่มีรายการ<\/div>'}<\/div>`;
+}
+
+/* ---------- พนักงาน (ผู้ดูแล) ---------- */
+function viewStaff(){
+  const list = S.data.staff;
+  return `<div class="row" style="justify-content:space-between;margin-bottom:14px"><div><div class="eyebrow">ผู้ดูแลระบบ<\/div><div style="font-size:19px;font-weight:600;margin-top:2px">พนักงานและบัญชีผู้ใช้<\/div><\/div>
+      <button class="btn gold" onclick="openStaff(null)"><i class="ti ti-user-plus"><\/i>เพิ่มพนักงาน<\/button><\/div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>ชื่อเล่น<\/th><th style="text-align:left">รหัส<\/th><th style="text-align:left">ชื่อ-นามสกุล<\/th><th style="text-align:left">Username<\/th><th>สิทธิ์<\/th><th>สถานะ<\/th><\/tr><\/thead>
+      <tbody>${list.map((s, i) => `<tr class="staffrow" onclick="openStaff(${i})">
+        <td><b style="font-weight:500">${esc(s.nick)}<\/b>${s.alias ? `<div class="muted small">${esc(s.alias)}<\/div>` : ''}<\/td>
+        <td>${s.code ? esc(s.code) : '<span class="num0">—<\/span>'}<\/td>
+        <td>${s.name ? esc(s.name) : '<span class="num0">—<\/span>'}<\/td>
+        <td>${s.username ? '@' + esc(s.username) + (s.hasPass ? '' : ' <span class="tag warn">ยังไม่มีรหัส<\/span>') : '<span class="num0">ยังไม่มีบัญชี<\/span>'}<\/td>
+        <td style="text-align:center">${s.admin ? '<span class="pill gold">admin<\/span>' : '<span class="pill">พนักงาน<\/span>'}<\/td>
+        <td style="text-align:center">${s.active ? '<span style="color:var(--ok)">ใช้งาน<\/span>' : '<span class="muted">ปิด<\/span>'}<\/td><\/tr>`).join('')}<\/tbody>
+    <\/table><\/div>
+    <div class="muted small" style="margin-top:8px">แก้ในชีต "พนักงาน" ได้เหมือนกัน · รหัสผ่านที่พิมพ์ในชีตจะถูกเข้ารหัสอัตโนมัติ (แสดงเป็น ●●●●●●)<\/div>`;
+}
+function openStaff(i){
+  const s = i == null ? {active: true} : S.data.staff[i];
+  const isNew = i == null;
+  modal(isNew ? 'เพิ่มพนักงาน' : 'แก้ไข ' + esc(s.nick), `
+    <div class="grid2">
+      <div><label class="f">ชื่อเล่น (ตรงกับไฟล์แพลน) *<\/label><input class="in" id="sfNick" value="${esc(s.nick || '')}" ${isNew ? '' : 'disabled'}><\/div>
+      <div><label class="f">รหัสพนักงาน (Humansoft)<\/label><input class="in" id="sfCode" value="${esc(s.code || '')}"><\/div>
+    <\/div>
+    <label class="f">ชื่อ-นามสกุล (ตรงกับ Humansoft)<\/label><input class="in" id="sfName" value="${esc(s.name || '')}" placeholder="สมชาย ใจดี">
+    <div class="grid2">
+      <div><label class="f">ชื่อเรียกอื่น (คั่นด้วย ,)<\/label><input class="in" id="sfAlias" value="${esc(s.alias || '')}" placeholder="พี่น้อง"><\/div>
+      <div><label class="f">ฝ่าย<\/label><input class="in" id="sfDept" value="${esc(s.dept || '')}" placeholder="แอดมิน"><\/div>
+    <\/div>
+    <div style="border-top:1px solid var(--line);margin:18px 0 0;padding-top:4px"><\/div>
+    <div class="eyebrow" style="margin-top:12px">บัญชีเข้าสู่ระบบ<\/div>
+    <div class="grid2">
+      <div><label class="f">Username<\/label><input class="in" id="sfUser" value="${esc(s.username || '')}" autocapitalize="off" spellcheck="false" placeholder="a-z 0-9 . _ -"><\/div>
+      <div><label class="f">${s.hasPass ? 'ตั้งรหัสผ่านใหม่ (เว้นว่าง = ไม่เปลี่ยน)' : 'รหัสผ่าน (อย่างน้อย 6 ตัว)'}<\/label><input class="in" id="sfPass" type="text" autocomplete="off" placeholder="${s.hasPass ? '●●●●●●' : ''}"><\/div>
+    <\/div>
+    <label class="f">สิทธิ์<\/label>
+    <select class="in" id="sfRole"><option value="0">พนักงาน — ดูเวร แจ้งมาไม่ได้ รับแทนเวร<\/option><option value="1" ${s.admin ? 'selected' : ''}>ผู้ดูแลระบบ — จัดการพนักงาน บัญชี และแก้ย้อนหลัง<\/option><\/select>
+    <label class="chk"><input type="checkbox" id="sfActive" ${s.active ? 'checked' : ''}> ใช้งานอยู่ (ปิด = ไม่แสดงในรายชื่อคนแทน และเข้าระบบไม่ได้)<\/label>`,
+    `<button class="btn" onclick="closeModal()">ยกเลิก<\/button><button class="btn gold" id="sfSave" onclick="saveStaffForm(${isNew})">บันทึก<\/button>`);
+}
+function saveStaffForm(isNew){
+  const o = {
+    nick: $('sfNick').value.trim(), code: $('sfCode').value.trim(), name: $('sfName').value.trim(), alias: $('sfAlias').value.trim(),
+    dept: $('sfDept').value.trim(), username: $('sfUser').value.trim(), password: $('sfPass').value, admin: $('sfRole').value === '1',
+    active: $('sfActive').checked, isNew
+  };
+  if (!o.nick) return toast('กรอกชื่อเล่น', true);
+  if (o.password && o.password.length < 6) return toast('รหัสผ่านต้องมีอย่างน้อย 6 ตัว', true);
+  if (o.password && !o.username) return toast('กรอก Username ด้วย', true);
+  busyBtn('sfSave', true);
+  api('saveStaff', [o]).then(d => { S.data = d; closeModal(); toast('บันทึกแล้ว'); })
+    .catch(e => { busyBtn('sfSave', false); toast(errMsg(e), true); });
 }
 
 /* ---------- หน้าต่าง ---------- */
@@ -472,61 +660,46 @@ function modal(title, body, foot){
   document.querySelectorAll('.ov').forEach(o => o.remove());
   const ov = document.createElement('div');
   ov.className = 'ov';
-  ov.innerHTML = `<div class="sheet" role="dialog"><header><h3>${title}<\/h3><button class="x" onclick="closeModal()">✕<\/button><\/header>
+  ov.innerHTML = `<div class="sheet" role="dialog"><header><h3>${title}<\/h3><button class="iconbtn" aria-label="ปิด" onclick="closeModal()"><i class="ti ti-x"><\/i><\/button><\/header>
     <div class="body">${body}<\/div>${foot ? `<footer>${foot}<\/footer>` : ''}<\/div>`;
   ov.addEventListener('click', e => { if (e.target === ov) closeModal(); });
   document.body.appendChild(ov);
   return ov;
 }
-
-/* เลือกชื่อของฉัน */
-function openMe(){
-  if (!S.data) return;
-  const names = activeStaff().map(s => s.nick);
-  modal('ฉันคือใคร?', `<div class="kv">เลือกชื่อเล่นของคุณ (จำไว้ในเครื่องนี้)<\/div>
-    <input class="in" id="meQ" placeholder="ค้นหาชื่อ…" oninput="filterMe()" style="margin-top:8px">
-    <div class="names" id="meList">${names.map(n => `<button data-n="${esc(n)}" class="${n === S.me ? 'on' : ''}" onclick="setMe(this.dataset.n)">${esc(n)}<\/button>`).join('')}<\/div>`);
-}
-function filterMe(){
-  const q = $('meQ').value.trim();
-  document.querySelectorAll('#meList button').forEach(b => { b.style.display = !q || b.dataset.n.indexOf(q) >= 0 ? '' : 'none'; });
-}
-function setMe(n){ S.me = n; LS.set('me', n); closeModal(); toast('สวัสดี ' + n); }
+function busyBtn(id, on){ const b = $(id); if (b){ b.disabled = on; if (on){ b.dataset.t = b.innerHTML; b.textContent = 'กำลังบันทึก…'; } else if (b.dataset.t) b.innerHTML = b.dataset.t; } }
 
 /* กดที่คน */
-function findP(date, owner){
-  const day = S.data.days.find(d => d.date === date);
-  return [day, day && day.people.find(p => p.owner === owner)];
-}
+function findP(date, owner){ const day = dayOf(date); return [day, day && day.people.find(p => p.owner === owner)]; }
 function openPerson(date, owner){
   const [day, p] = findP(date, owner);
   if (!p) return;
   const st = STATUS[p.status] || ['', ''];
   const past = date < S.data.today;
-  const canCancel = p.swap && (p.swap.device === DEVICE || S.admin) && (!past || S.admin);
-  let info = `<div class="row" style="justify-content:space-between"><div><b style="font-size:18px">${esc(p.actual || p.owner)}<\/b>
-    ${p.actual && p.actual !== p.owner ? `<div class="kv">แทนเจ้าของเวร ${esc(p.owner)}<\/div>` : '<div class="kv">เจ้าของเวร<\/div>'}<\/div>
-    <span class="st ${st[1]}" style="animation:none">${st[0]}<\/span><\/div>`;
-  if (p.swap) info += `<div class="card" style="margin-top:10px;box-shadow:none;border:1px solid var(--line)">
-      <div class="kv">${p.swap.status === 'หาคนแทน' ? 'แจ้งไม่มา' : 'บันทึกการแทน'} โดย ${esc(p.swap.by)} · ${esc(p.swap.at)}<\/div>
-      ${p.swap.reason ? `<div>เหตุผล: ${esc(p.swap.reason)}<\/div>` : ''}<\/div>`;
-  if (p.scan && p.scan.in) info += `<div style="margin-top:10px">🕘 สแกนเข้า <b>${esc(p.scan.in)}<\/b>${p.scan.out ? ' · ออก <b>' + esc(p.scan.out) + '<\/b>' : ''} <span class="kv">(${esc(p.scan.src.join(', '))})<\/span><\/div>`;
-  if (S.admin && !day.cancelled) info += `<div style="margin-top:14px" class="kv">ผู้ดูแล: บันทึกการมาเอง (กรณีไม่มีข้อมูลสแกน)<\/div>
-    <div class="row" style="margin-top:4px"><input class="in" id="mIn" type="time" style="width:auto" value="08:30"><input class="in" id="mOut" type="time" style="width:auto">
-    <button class="btn sec" onclick="markAtt('${date}','${esc(p.actual || p.owner)}')">ทำเครื่องหมายว่ามา<\/button>
-    ${p.scan && p.scan.src.indexOf('บันทึกมือ') >= 0 ? `<button class="btn danger" onclick="markAtt('${date}','${esc(p.actual || p.owner)}',true)">ลบที่บันทึกมือ<\/button>` : ''}<\/div>`;
+  const me = ME().nick;
+  const canCancel = p.swap && (isAdmin() || [p.swap.by, p.owner, p.swap.sub].indexOf(me) >= 0) && (!past || isAdmin());
+  let info = `<div class="row" style="justify-content:space-between"><div class="row" style="gap:12px"><div class="av" style="width:44px;height:44px;font-size:16px">${initial(p.actual || p.owner)}<\/div>
+    <div><div style="font-size:17px;font-weight:600">${esc(p.actual || p.owner)}<\/div><div class="muted small">${p.actual && p.actual !== p.owner ? 'แทนเจ้าของเวร ' + esc(p.owner) : 'เจ้าของเวร'}<\/div><\/div><\/div>
+    <span class="st ${st[1]}">${st[0]}<\/span><\/div>`;
+  if (p.swap) info += `<div class="card" style="margin-top:14px;background:var(--s2)">
+      <div class="muted small">${p.swap.status === 'หาคนแทน' ? 'แจ้งไม่มา' : 'บันทึกการแทน'} โดย ${esc(p.swap.by)} · ${esc(p.swap.at)}<\/div>
+      ${p.swap.reason ? `<div style="margin-top:4px">เหตุผล: ${esc(p.swap.reason)}<\/div>` : ''}<\/div>`;
+  if (p.scan && p.scan.in) info += `<div style="margin-top:14px"><i class="ti ti-fingerprint" style="color:var(--gold2)"><\/i> สแกนเข้า <b>${esc(p.scan.in)}<\/b>${p.scan.out ? ' · ออก <b>' + esc(p.scan.out) + '<\/b>' : ''} <span class="muted small">(${esc(p.scan.src.join(', '))})<\/span><\/div>`;
+  if (isAdmin() && !day.cancelled) info += `<div style="border-top:1px solid var(--line);margin-top:16px;padding-top:12px" class="eyebrow">ผู้ดูแล · บันทึกการมาเอง<\/div>
+    <div class="row" style="margin-top:8px"><input class="in" id="mIn" type="time" style="width:auto" value="08:30"><input class="in" id="mOut" type="time" style="width:auto">
+    <button class="btn sm" onclick="markAtt('${date}','${esc(p.actual || p.owner)}')">ทำเครื่องหมายว่ามา<\/button>
+    ${p.scan && p.scan.src.indexOf('บันทึกมือ') >= 0 ? `<button class="btn sm danger" onclick="markAtt('${date}','${esc(p.actual || p.owner)}',true)">ลบที่บันทึกมือ<\/button>` : ''}<\/div>`;
   const btns = [];
-  if (!day.cancelled && (!past || S.admin)){
-    if (p.status === 'open') btns.push(`<button class="btn ok" onclick="openTake('${p.swap.id}')">ฉันไปแทนเอง<\/button>`);
-    btns.push(`<button class="btn ${p.swap ? 'sec' : 'warn'}" onclick="openSwap('${date}','${esc(p.owner)}')">${p.swap ? 'เปลี่ยนคนแทน' : 'มาไม่ได้ / หาคนแทน'}<\/button>`);
+  if (!day.cancelled && (!past || isAdmin())){
     if (canCancel) btns.push(`<button class="btn danger" onclick="doCancel('${p.swap.id}')">ยกเลิกการแทน<\/button>`);
+    if (p.status === 'open' && p.owner !== me) btns.push(`<button class="btn gold" onclick="openTake('${p.swap.id}')">ฉันไปแทนเอง<\/button>`);
+    btns.push(`<button class="btn ${p.swap ? '' : 'gold'}" onclick="openSwap('${date}','${esc(p.owner)}')">${p.swap ? 'เปลี่ยนคนแทน' : 'มาไม่ได้ / หาคนแทน'}<\/button>`);
   }
-  modal(fmtDate(date, true), info + (past && !S.admin && !day.cancelled ? '<div class="kv" style="margin-top:12px">วันนี้ผ่านไปแล้ว แก้ไขได้เฉพาะผู้ดูแล<\/div>' : ''), btns.join(''));
+  modal(fmtDate(date, true), info + (past && !isAdmin() && !day.cancelled ? '<div class="muted small" style="margin-top:14px">วันนี้ผ่านไปแล้ว แก้ไขได้เฉพาะผู้ดูแล<\/div>' : ''), btns.join(''));
 }
 
 /* คนที่ว่างวันนั้น เรียงจากคนเข้าเวรน้อยสุดของปี */
 function candidates(date, owner){
-  const day = S.data.days.find(d => d.date === date);
+  const day = dayOf(date);
   const busy = new Set();
   day.people.forEach(p => { if (p.owner !== owner && p.actual) busy.add(p.actual); });
   const y = date.slice(0, 4);
@@ -543,139 +716,96 @@ function candidates(date, owner){
 
 /* แจ้งไม่มา / หาคนแทน */
 let PICK = null;
-function openSwap(date, owner, presetSub){
-  if (!S.me){ toast('เลือกชื่อของคุณก่อน', true); return openMe(); }
-  const [day, p] = findP(date, owner);
+function openSwap(date, owner){
+  const [, p] = findP(date, owner);
   const cs = candidates(date, owner);
-  PICK = presetSub || (p.swap && p.swap.sub) || '';
+  PICK = (p.swap && p.swap.sub) || '';
   const y = date.slice(0, 4);
-  modal('หาคนแทนเวร', `<div><b>${fmtDate(date, true)}<\/b><\/div><div class="kv">เจ้าของเวร: <b style="color:var(--txt)">${esc(owner)}<\/b><\/div>
+  modal('หาคนแทนเวร', `<div style="font-weight:600">${fmtDate(date, true)}<\/div><div class="muted small">เจ้าของเวร: <span style="color:var(--txt)">${esc(owner)}<\/span><\/div>
     <label class="f">เหตุผลที่มาไม่ได้ (ไม่บังคับ)<\/label>
-    <input class="in" id="swReason" maxlength="200" placeholder="เช่น ธุระที่บ้าน, ป่วย" value="${esc(p.swap ? p.swap.reason : '')}">
-    <label class="f">ใครมาแทน? <span style="float:right">เรียงจากคนที่เข้าเวรน้อยสุดในปี ${y}<\/span><\/label>
-    <input class="in" id="swQ" placeholder="ค้นหาชื่อ…" oninput="filterCand()">
+    <input class="in" id="swReason" maxlength="200" placeholder="ธุระที่บ้าน" value="${esc(p.swap ? p.swap.reason : '')}">
+    <label class="f" style="display:flex;justify-content:space-between"><span>ใครมาแทน?<\/span><span class="muted" style="font-weight:400">เรียงจากคนเข้าเวรน้อยสุดในปี ${y}<\/span><\/label>
+    <input class="in" id="swQ" placeholder="ค้นหาชื่อ" oninput="filterCand()">
     <div class="opts" id="candList" style="margin-top:8px">
-      <button class="opt${PICK === '' ? ' on' : ''}" data-n="" onclick="pick(this)"><div class="av" style="background:#C2410C">?<\/div><div><b>ยังหาคนแทนไม่ได้<\/b><div class="kv">ประกาศให้คนอื่นกด "ฉันไปแทนเอง"<\/div><\/div><\/button>
+      <button class="opt${PICK === '' ? ' on' : ''}" data-n="" onclick="pick(this)"><div class="av" style="color:var(--warn)"><i class="ti ti-help" style="font-size:16px"><\/i><\/div><div><div style="font-weight:500">ยังหาคนแทนไม่ได้<\/div><div class="muted small">ประกาศให้คนอื่นกด "ฉันไปแทนเอง"<\/div><\/div><\/button>
       ${cs.map(c => `<button class="opt${PICK === c.nick ? ' on' : ''}" data-n="${esc(c.nick)}" onclick="pick(this)"><div class="av">${initial(c.nick)}<\/div>
-        <div><b>${esc(c.nick)}<\/b>${c.recent ? '<div class="warnline">เพิ่งเข้าเวรสัปดาห์ที่แล้ว<\/div>' : ''}<\/div><div class="c">เวรปีนี้<br><b>${c.load}<\/b> ครั้ง<\/div><\/button>`).join('')}
+        <div><div style="font-weight:500">${esc(c.nick)}<\/div>${c.recent ? '<div class="warnline">เพิ่งเข้าเวรสัปดาห์ที่แล้ว<\/div>' : ''}<\/div><div class="c">เวรปีนี้<br><b style="color:var(--txt)">${c.load}<\/b> ครั้ง<\/div><\/button>`).join('')}
     <\/div>
-    <div class="kv" style="margin-top:10px">บันทึกโดย: <b>${esc(S.me)}<\/b><\/div>`,
-    `<button class="btn sec" onclick="closeModal()">ยกเลิก<\/button><button class="btn" id="swSave" onclick="doSwap('${date}','${esc(owner)}')">บันทึก<\/button>`);
+    <div class="muted small" style="margin-top:12px">บันทึกโดย ${esc(ME().nick)}<\/div>`,
+    `<button class="btn" onclick="closeModal()">ยกเลิก<\/button><button class="btn gold" id="swSave" onclick="doSwap('${date}','${esc(owner)}')">บันทึก<\/button>`);
 }
 function filterCand(){
   const q = $('swQ').value.trim();
   document.querySelectorAll('#candList .opt').forEach(b => { if (b.dataset.n) b.style.display = !q || b.dataset.n.indexOf(q) >= 0 ? '' : 'none'; });
 }
-function pick(el){
-  PICK = el.dataset.n;
-  document.querySelectorAll('#candList .opt').forEach(b => b.classList.toggle('on', b === el));
-}
-function busyBtn(id, on){ const b = $(id); if (b){ b.disabled = on; if (on) b.dataset.t = b.textContent, b.textContent = 'กำลังบันทึก…'; else if (b.dataset.t) b.textContent = b.dataset.t; } }
+function pick(el){ PICK = el.dataset.n; document.querySelectorAll('#candList .opt').forEach(b => b.classList.toggle('on', b === el)); }
 function doSwap(date, owner){
   busyBtn('swSave', true);
-  call('saveSwap', {date, owner, sub: PICK, reason: $('swReason').value, by: S.me, deviceId: DEVICE, pin: S.pin, adminPass: S.admin})
-    .then(d => { S.data = d; closeModal(); toast(PICK ? `บันทึกแล้ว: ${PICK} แทน ${owner}` : 'แจ้งหาคนแทนแล้ว'); })
+  api('saveSwap', {date, owner, sub: PICK, reason: $('swReason').value})
+    .then(d => { S.data = d; closeModal(); toast(PICK ? `บันทึกแล้ว: ${PICK} แทน ${owner}` : 'ประกาศหาคนแทนแล้ว'); })
     .catch(e => { busyBtn('swSave', false); toast(errMsg(e), true); });
 }
 
 /* รับแทนเวรที่ประกาศไว้ */
 function openTake(id){
-  if (!S.me){ toast('เลือกชื่อของคุณก่อน', true); return openMe(); }
   let day, p;
   S.data.days.forEach(d => d.people.forEach(x => { if (x.swap && x.swap.id === id){ day = d; p = x; } }));
   if (!p) return;
-  const ok = candidates(day.date, p.owner).some(c => c.nick === S.me);
-  modal('รับแทนเวร', `<p>คุณ <b>${esc(S.me)}<\/b> จะไปเข้าเวรแทน <b>${esc(p.owner)}<\/b><br>${fmtDate(day.date, true)}<\/p>
-    ${ok ? '' : '<div class="warnline">คุณมีเวรวันนั้นอยู่แล้ว หรือไม่อยู่ในรายชื่อที่ใช้งาน<\/div>'}`,
-    `<button class="btn sec" onclick="closeModal()">ไม่ใช่ตอนนี้<\/button><button class="btn ok" id="tkSave" ${ok ? '' : 'disabled'} onclick="doTake('${id}')">ยืนยัน ฉันไปแทน<\/button>`);
+  const ok = candidates(day.date, p.owner).some(c => c.nick === ME().nick);
+  modal('รับแทนเวร', `<p style="margin-top:0">คุณ <b>${esc(ME().nick)}<\/b> จะไปเข้าเวรแทน <b>${esc(p.owner)}<\/b><br><span class="t2">${fmtDate(day.date, true)}<\/span><\/p>
+    ${ok ? '' : '<div class="warnline">คุณมีเวรวันนั้นอยู่แล้ว หรือบัญชีไม่ได้อยู่ในรายชื่อพนักงาน<\/div>'}`,
+    `<button class="btn" onclick="closeModal()">ไม่ใช่ตอนนี้<\/button><button class="btn gold" id="tkSave" ${ok ? '' : 'disabled'} onclick="doTake('${id}')">ยืนยัน ฉันไปแทน<\/button>`);
 }
 function doTake(id){
   busyBtn('tkSave', true);
-  call('takeShift', {id, sub: S.me, by: S.me, deviceId: DEVICE, pin: S.pin, adminPass: S.admin})
-    .then(d => { S.data = d; closeModal(); toast('ขอบคุณที่ไปแทน 🙏'); })
+  api('takeShift', {id}).then(d => { S.data = d; closeModal(); toast('บันทึกแล้ว ขอบคุณที่ไปแทน'); })
     .catch(e => { busyBtn('tkSave', false); toast(errMsg(e), true); });
 }
 function doCancel(id){
   if (!confirm('ยกเลิกการแทนนี้ และให้เวรกลับเป็นของเจ้าของเวรเดิม?')) return;
-  call('cancelSwap', {id, by: S.me || 'ผู้ดูแล', deviceId: DEVICE, pin: S.pin, adminPass: S.admin})
-    .then(d => { S.data = d; closeModal(); toast('ยกเลิกแล้ว'); })
-    .catch(e => toast(errMsg(e), true));
+  api('cancelSwap', {id}).then(d => { S.data = d; closeModal(); toast('ยกเลิกแล้ว'); }).catch(e => toast(errMsg(e), true));
+}
+function markAtt(date, nick, clear){
+  api('markAttendance', {date, nick, in: $('mIn') ? $('mIn').value : '', out: $('mOut') ? $('mOut').value : '', clear: !!clear})
+    .then(d => { S.data = d; closeModal(); toast(clear ? 'ลบแล้ว' : 'บันทึกว่ามาแล้ว'); }).catch(e => toast(errMsg(e), true));
 }
 
-/* PIN ทีม (ถ้าตั้ง TEAM_PIN) */
-function askPin(){
-  $('app').innerHTML = `<div class="card" style="max-width:360px;margin:40px auto;text-align:center"><h2>🔒 ใส่ PIN ทีม<\/h2>
-    <input class="in" id="pinIn" type="password" inputmode="numeric" style="text-align:center;font-size:20px" onkeydown="if(event.key==='Enter')savePin()">
-    <button class="btn" style="margin-top:10px;width:100%" onclick="savePin()">เข้าใช้งาน<\/button><\/div>`;
-  setTimeout(() => $('pinIn') && $('pinIn').focus(), 50);
+/* เปลี่ยนรหัสผ่าน */
+function openChangePw(){
+  modal('เปลี่ยนรหัสผ่าน', `<label class="f">รหัสผ่านเดิม<\/label><input class="in" id="pwOld" type="password" autocomplete="current-password">
+    <label class="f">รหัสผ่านใหม่ (อย่างน้อย 6 ตัว)<\/label><input class="in" id="pwNew" type="password" autocomplete="new-password">
+    <label class="f">ยืนยันรหัสผ่านใหม่<\/label><input class="in" id="pwNew2" type="password" autocomplete="new-password">`,
+    `<button class="btn" onclick="closeModal()">ยกเลิก<\/button><button class="btn gold" id="pwSave" onclick="doChangePw()">บันทึก<\/button>`);
 }
-function savePin(){ S.pin = $('pinIn').value.trim(); LS.set('pin', S.pin); load(); }
+function doChangePw(){
+  if ($('pwNew').value !== $('pwNew2').value) return toast('รหัสผ่านใหม่ไม่ตรงกัน', true);
+  busyBtn('pwSave', true);
+  api('changePassword', $('pwOld').value, $('pwNew').value).then(() => { closeModal(); toast('เปลี่ยนรหัสผ่านแล้ว'); })
+    .catch(e => { busyBtn('pwSave', false); toast(errMsg(e), true); });
+}
 
-/* ---------- ผู้ดูแล ---------- */
-function openAdmin(){
-  if (!S.data) return;
-  if (!S.admin){
-    modal('เข้าโหมดผู้ดูแล', `<label class="f">รหัสผู้ดูแล<\/label><input class="in" id="admPass" type="password" onkeydown="if(event.key==='Enter')admLogin()">`,
-      `<button class="btn" id="admBtn" onclick="admLogin()">เข้าสู่ระบบ<\/button>`);
-    setTimeout(() => $('admPass') && $('admPass').focus(), 50);
-    return;
-  }
+/* ตั้งค่าระบบ (ผู้ดูแล) */
+function openSystem(){
   const d = S.data;
-  const staff = d.staff;
-  modal('⚙ ผู้ดูแล', `<div class="adm">
-    <div class="card" style="box-shadow:none;border:1px solid var(--line)"><b>แพลนเวร<\/b>
-      <div class="kv">ดึงจากไฟล์ต้นฉบับ "แพลนเข้าทำงานในวันเสาร์" (อ่านอย่างเดียว) ทุก 15 นาที และทุกครั้งที่เปิดแอป<\/div>
-      <button class="btn sec" style="margin-top:8px" id="bSync" onclick="admSync()">🔄 ดึงแพลนตอนนี้<\/button><\/div>
-    <div class="card" style="box-shadow:none;border:1px solid var(--line)"><b>สแกนนิ้ว (Humansoft)<\/b>
-      <div class="kv">${d.scanInfo.folder ? 'นำเข้าล่าสุด ' + esc(d.scanInfo.last || '-') + (d.scanInfo.msg ? '<br>' + esc(d.scanInfo.msg) : '') : 'ยังไม่ได้ตั้งโฟลเดอร์ — ใส่ Script property SCAN_FOLDER_ID'}<\/div>
-      <button class="btn sec" style="margin-top:8px" id="bScan" onclick="admScan()">📥 นำเข้าไฟล์สแกนตอนนี้<\/button><\/div>
-    <div><b>พนักงาน<\/b> <span class="kv">— ใส่รหัสและชื่อ-นามสกุลให้ตรงกับ Humansoft<\/span>
-      <div class="tablewrap" style="margin-top:6px"><table class="staff-tb"><thead><tr><th>ชื่อเล่น<\/th><th>รหัส<\/th><th>ชื่อ-นามสกุล<\/th><th>ใช้งาน<\/th><\/tr><\/thead><tbody>
-      ${staff.map((s, i) => `<tr style="cursor:default"><td><b>${esc(s.nick)}<\/b><\/td>
-        <td><input data-i="${i}" data-k="code" value="${esc(s.code)}" placeholder="รหัส"><\/td>
-        <td><input data-i="${i}" data-k="name" value="${esc(s.name)}" placeholder="ชื่อ-นามสกุล" style="min-width:160px"><\/td>
-        <td><input type="checkbox" data-i="${i}" data-k="active" ${s.active ? 'checked' : ''} style="width:auto"><\/td><\/tr>`).join('')}
-      <\/tbody><\/table><\/div>
-      <div class="row" style="margin-top:8px"><input class="in" id="newNick" placeholder="เพิ่มพนักงาน (ชื่อเล่น)" style="flex:1;min-width:160px"><\/div><\/div>
-  <\/div>`, `<button class="btn sec" onclick="admLogout()">ออกจากโหมดผู้ดูแล<\/button><button class="btn" id="bStaff" onclick="admSaveStaff()">บันทึกพนักงาน<\/button>`);
+  const sync = d.lastSync ? new Date(d.lastSync).toLocaleString('th-TH', {dateStyle:'short', timeStyle:'short'}) : '-';
+  modal('ตั้งค่าระบบ', `<div class="card" style="background:var(--s2)"><div style="font-weight:500"><i class="ti ti-file-spreadsheet" style="color:var(--gold2)"><\/i> แพลนเวร<\/div>
+      <div class="muted small" style="margin-top:4px">ดึงจากไฟล์ต้นฉบับ "แพลนเข้าทำงานในวันเสาร์" (อ่านอย่างเดียว) ทุก 15 นาที และเมื่อเปิดแอป · ล่าสุด ${esc(sync)}<\/div>
+      <button class="btn sm" style="margin-top:10px" id="bSync" onclick="admSync()"><i class="ti ti-refresh"><\/i>ดึงแพลนตอนนี้<\/button><\/div>
+    <div class="card" style="background:var(--s2);margin-top:10px"><div style="font-weight:500"><i class="ti ti-fingerprint" style="color:var(--gold2)"><\/i> สแกนนิ้ว (Humansoft)<\/div>
+      <div class="muted small" style="margin-top:4px">${d.scanInfo.folder ? 'นำเข้าล่าสุด ' + esc(d.scanInfo.last || '-') + (d.scanInfo.msg ? '<br>' + esc(d.scanInfo.msg) : '') : 'ยังไม่ได้ตั้งโฟลเดอร์ — ใส่ Script property SCAN_FOLDER_ID'}<\/div>
+      <button class="btn sm" style="margin-top:10px" id="bScan" onclick="admScan()"><i class="ti ti-download"><\/i>นำเข้าไฟล์สแกนตอนนี้<\/button><\/div>`);
 }
-function admLogin(){
-  const p = $('admPass').value;
-  busyBtn('admBtn', true);
-  call('adminLogin', p).then(() => {
-    S.admin = p; try { sessionStorage.setItem('duty.admin', p); } catch(e){}
-    closeModal(); openAdmin();
-  }).catch(e => { busyBtn('admBtn', false); toast(errMsg(e), true); });
-}
-function admLogout(){ S.admin = ''; try { sessionStorage.removeItem('duty.admin'); } catch(e){} closeModal(); }
 function admSync(){
   busyBtn('bSync', true);
-  call('syncNow', S.admin).then(r => { S.data = r.data; toast(`ดึงแพลนแล้ว ${r.sync.days} วัน${r.sync.changed ? '' : ' (ไม่มีการเปลี่ยนแปลง)'}`); closeModal(); openAdmin(); })
+  api('syncNow').then(r => { S.data = r.data; toast(`ดึงแพลนแล้ว ${r.sync.days} วัน${r.sync.changed ? '' : ' (ไม่มีการเปลี่ยนแปลง)'}`); closeModal(); })
     .catch(e => { busyBtn('bSync', false); toast(errMsg(e), true); });
 }
 function admScan(){
   busyBtn('bScan', true);
-  call('importScansNow', S.admin).then(r => { S.data = r.data; toast(r.scan.skipped && !r.scan.msg ? r.scan.skipped : r.scan.msg); closeModal(); openAdmin(); })
+  api('importScansNow').then(r => { S.data = r.data; toast(r.scan.msg || r.scan.skipped || 'เสร็จแล้ว'); closeModal(); })
     .catch(e => { busyBtn('bScan', false); toast(errMsg(e), true); });
 }
-function admSaveStaff(){
-  const list = S.data.staff.map(s => ({nick: s.nick}));
-  document.querySelectorAll('.staff-tb [data-i]').forEach(el => {
-    list[+el.dataset.i][el.dataset.k] = el.type === 'checkbox' ? el.checked : el.value;
-  });
-  const nn = $('newNick').value.trim();
-  if (nn) list.push({nick: nn, active: true});
-  busyBtn('bStaff', true);
-  call('saveStaff', S.admin, list).then(d => { S.data = d; toast('บันทึกพนักงานแล้ว'); closeModal(); })
-    .catch(e => { busyBtn('bStaff', false); toast(errMsg(e), true); });
-}
-function markAtt(date, nick, clear){
-  call('markAttendance', S.admin, {date, nick, in: $('mIn') ? $('mIn').value : '', out: $('mOut') ? $('mOut').value : '', clear: !!clear})
-    .then(d => { S.data = d; closeModal(); toast(clear ? 'ลบแล้ว' : 'บันทึกว่ามาแล้ว'); })
-    .catch(e => toast(errMsg(e), true));
-}
 
-renderTabs();
 load();
 </script>
 </body>
