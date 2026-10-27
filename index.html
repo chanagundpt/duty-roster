@@ -183,6 +183,38 @@ select.in{appearance:none;background-image:linear-gradient(45deg,transparent 50%
 .staffrow td{text-align:left}
 .pill{font-size:11px;border-radius:5px;padding:1px 6px;border:1px solid var(--line2);color:var(--txt2)}
 .pill.gold{border-color:var(--goldline);color:var(--gold2)}
+
+.av.gx{color:#7FB7D9}
+.dot.xtra{background:rgba(127,183,217,.14);color:#7FB7D9}
+.tag.xtra{background:rgba(127,183,217,.14);color:#7FB7D9}
+.tag.hol{background:rgba(224,139,122,.13);color:#E08B7A}
+.legend .dot{display:inline-block;width:10px;height:10px;padding:0;border-radius:3px;font-size:0}
+.legend .dot.all{background:var(--gold2)} .legend .dot.xtra{background:#7FB7D9} .legend .dot.sub{background:var(--sub)}
+.legend .dot.open{background:var(--warn)} .legend .dot.bad{background:var(--bad)} .legend .dot.hd{background:#E08B7A} .legend .dot.me{background:var(--gold2);border-radius:50%;width:8px;height:8px}
+.cell .hol{font-size:10.5px;color:#E08B7A;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cell.obs .hol{color:var(--mut)}
+.cell.holiday{border-color:rgba(224,139,122,.35)}
+.cell.holiday .n{color:#E08B7A}
+.cell.holiday.duty .n{color:var(--gold2)}
+.search{position:relative}
+.search i{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--mut)}
+.search .in{padding-left:34px}
+.mono{font-variant-numeric:tabular-nums}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.metric{background:var(--s1);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.metric .v{font-size:22px;font-weight:600;margin-top:2px}
+table.report td{vertical-align:top}
+table.report tr.first td{border-top:1px solid var(--line2)}
+.rp{position:relative}
+.rppop{position:absolute;right:0;top:44px;z-index:45;background:var(--s2);border:1px solid var(--line2);border-radius:12px;padding:12px;width:300px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.rpcal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:12px}
+.rpcal button{border:0;background:none;color:var(--txt2);padding:7px 0;border-radius:6px;font-size:13px;position:relative}
+.rpcal button:hover{background:var(--s3)}
+.rpcal button.o{opacity:.35}
+.rpcal button.du::after{content:'';position:absolute;bottom:2px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--gold)}
+.rpcal button.in{background:var(--goldbg);color:var(--txt)}
+.rpcal button.edge{background:var(--gold);color:#16120C}
+@media (max-width:640px){ .cell .hol{display:none} .rppop{right:auto;left:0;width:min(300px,calc(100vw - 32px))} }
 /* มือถือ */
 @media (max-width:899px){
   .top{backdrop-filter:none;background:var(--bg)}
@@ -212,7 +244,7 @@ select.in{appearance:none;background-image:linear-gradient(45deg,transparent 50%
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxOacNTG4tGdFwtELxqvnEA-kjo1rDqyAWKIXm6z89foVDzj3k6Y1ugJE3Ut9rSFdY/exec";
-const PAGE_VERSION = '2026-10-27.1';
+const PAGE_VERSION = '2026-10-27.2';
 
 /* ---------- ตัวเรียกเซิร์ฟเวอร์ ---------- */
 function call(fn, ...args){
@@ -349,7 +381,7 @@ function load(quiet){
     S.data = d;
     if (!S.month || !S.sel){
       const nx = nextDay();
-      S.sel = S.sel || (nx ? nx.date : '');
+      S.sel = S.sel || (nx ? nx.date : d.today);
       S.month = S.month || (S.sel || d.today).slice(0, 7);
     }
     $('top').style.display = '';
@@ -389,7 +421,7 @@ document.addEventListener('click', closeMenu);
 
 /* ---------- แท็บ ---------- */
 function tabs(){
-  const t = [['cal','ti-calendar-event','ปฏิทินเวร'],['stats','ti-chart-bar','สรุปรายคน'],['hist','ti-arrows-exchange','ประวัติแทน']];
+  const t = [['cal','ti-calendar-event','ปฏิทินเวร'],['report','ti-report-analytics','สรุปการเข้าเวร'],['stats','ti-chart-bar','สรุปรายคน'],['hist','ti-arrows-exchange','ประวัติแทน']];
   if (isAdmin()) t.push(['staff','ti-users','พนักงาน']);
   return t;
 }
@@ -400,7 +432,7 @@ function render(){
   $('tabs').innerHTML = tabs().map(t => `<button class="${S.tab === t[0] ? 'on' : ''}" onclick="go('${t[0]}')"><i class="ti ${t[1]}"><\/i>${t[2]}<\/button>`).join('');
   $('acctAv').innerHTML = initial(ME().nick);
   $('acctNm').textContent = ME().nick;
-  const v = {cal: viewCal, stats: viewStats, hist: viewHist, staff: viewStaff}[S.tab] || viewCal;
+  const v = {cal: viewCal, report: viewReport, stats: viewStats, hist: viewHist, staff: viewStaff}[S.tab] || viewCal;
   $('app').innerHTML = v() + footer();
 }
 function footer(){
@@ -430,34 +462,40 @@ function viewCal(){
       <button class="btn gold sm" onclick="openTake('${p.swap.id}')">ฉันไปแทนเอง<\/button><\/div>`).join('')}<\/div><\/div>` : '';
   return `${banner}<div class="home"><div><div class="card">${calendar()}<\/div>${openBox}<\/div><div class="detail" id="detail">${detailPanel()}<\/div><\/div>`;
 }
+function holsOf(k){ return (S.data.holidays || []).filter(h => h.date === k); }
 function calendar(){
   const [y, m] = S.month.split('-').map(Number);
   const first = new Date(y, m - 1, 1);
   const start = new Date(first); start.setDate(1 - ((first.getDay() + 6) % 7));
-  const map = {};
+  const map = {}, hol = {};
   S.data.days.forEach(d => { map[d.date] = d; });
+  (S.data.holidays || []).forEach(h => { (hol[h.date] = hol[h.date] || []).push(h); });
   const cells = [];
   for (let i = 0; i < 42; i++){
     const d = new Date(start); d.setDate(start.getDate() + i);
     if (i >= 35 && d.getMonth() !== m - 1) break;
-    const k = ymd(d), day = map[k], out = d.getMonth() !== m - 1;
+    const k = ymd(d), day = map[k], out = d.getMonth() !== m - 1, hs = hol[k] || [];
     const cls = ['cell'];
     if (out) cls.push('out');
     if (k === S.data.today) cls.push('today');
+    if (k === S.sel) cls.push('sel');
+    const realHol = hs.filter(h => h.type !== 'วันสำคัญ');
+    if (realHol.length) cls.push('holiday'); else if (hs.length) cls.push('obs');
     let inner = `<span class="n">${d.getDate()}<\/span>`;
+    if (hs.length) inner += `<span class="hol" title="${esc(hs.map(h => h.name).join(', '))}">${esc((realHol[0] || hs[0]).name)}<\/span>`;
     if (day){
       cls.push(day.cancelled ? 'cancel' : 'duty');
-      if (k === S.sel) cls.push('sel');
       if (!day.cancelled && day.people.some(isMine)) cls.push('mine');
       const subs = day.people.filter(p => p.swap && p.swap.status === 'แทนแล้ว').length;
       const open = day.people.filter(p => p.status === 'open').length;
       const bad = day.people.filter(p => p.status === 'absent' || p.status === 'subabsent').length;
+      const xtra = day.people.filter(p => p.group === 'x').length;
       const marks = day.cancelled ? '<span class="dot x">ยกเลิก<\/span>' :
-        (day.all ? '<span class="dot all">ทั้งหมด<\/span>' : '') + (subs ? `<span class="dot sub">แทน ${subs}<\/span>` : '') +
-        (open ? `<span class="dot open">หาคน ${open}<\/span>` : '') + (bad ? `<span class="dot bad">ขาด ${bad}<\/span>` : '');
+        (day.all ? '<span class="dot all">ทั้งหมด<\/span>' : '') + (xtra ? `<span class="dot xtra">เพิ่ม ${xtra}<\/span>` : '') +
+        (subs ? `<span class="dot sub">แทน ${subs}<\/span>` : '') + (open ? `<span class="dot open">หาคน ${open}<\/span>` : '') + (bad ? `<span class="dot bad">ขาด ${bad}<\/span>` : '');
       inner += (day.people.length && !day.cancelled ? `<span class="cnt"><i class="ti ti-users" style="font-size:13px"><\/i>${day.people.length} คน<\/span>` : '') + `<span class="marks">${marks}<\/span>`;
     }
-    cells.push(day ? `<button class="${cls.join(' ')}" onclick="pickDay('${k}')">${inner}<\/button>` : `<div class="${cls.join(' ')}">${inner}<\/div>`);
+    cells.push(`<button class="${cls.join(' ')}" onclick="pickDay('${k}')">${inner}<\/button>`);
   }
   const dows = ['จ.','อ.','พ.','พฤ.','ศ.','ส.','อา.'].map((x, i) => `<div class="dow${i === 5 ? ' sat' : ''}">${x}<\/div>`).join('');
   return `<div class="calhead">
@@ -467,10 +505,10 @@ function calendar(){
       <button class="iconbtn" aria-label="เดือนถัดไป" onclick="calMove(1)"><i class="ti ti-chevron-right"><\/i><\/button>
     <\/div>
     <div class="cal">${dows}${cells.join('')}<\/div>
-    <div class="legend"><span><span class="dot all"><\/span>เข้าทั้งหมด<\/span><span><span class="dot sub"><\/span>มีคนแทน<\/span><span><span class="dot open"><\/span>หาคนแทน<\/span><span><span class="dot bad"><\/span>ขาด<\/span><span><span style="width:7px;height:7px;border-radius:50%;background:var(--gold2);display:inline-block"><\/span>เวรของคุณ<\/span><\/div>`;
+    <div class="legend"><span><span class="dot all"><\/span>เข้าทั้งหมด<\/span><span><span class="dot xtra"><\/span>เวรเพิ่ม<\/span><span><span class="dot sub"><\/span>มีคนแทน<\/span><span><span class="dot open"><\/span>หาคนแทน<\/span><span><span class="dot bad"><\/span>ขาด<\/span><span><span class="dot hd"><\/span>วันหยุดราชการ<\/span><span><span class="dot me"><\/span>เวรของคุณ<\/span><\/div>`;
 }
 function calMove(n){ const [y, m] = S.month.split('-').map(Number); const d = new Date(y, m - 1 + n, 1); S.month = d.getFullYear() + '-' + pad(d.getMonth() + 1); render(); }
-function calToday(){ S.month = S.data.today.slice(0, 7); const nx = nextDay(); if (nx) S.sel = nx.date; render(); }
+function calToday(){ S.month = S.data.today.slice(0, 7); const nx = nextDay(); S.sel = nx ? nx.date : S.data.today; render(); }
 function pickDay(k){
   S.sel = k; S.month = k.slice(0, 7);
   if (S.tab !== 'cal') S.tab = 'cal';
@@ -478,6 +516,8 @@ function pickDay(k){
   if (window.innerWidth < 980){ const el = $('detail'); if (el) el.scrollIntoView({behavior:'smooth', block:'start'}); }
 }
 
+const GROUP_NAME = {'0':'ฝ่ายอื่น', '1':'กลุ่ม 1', '2':'กลุ่ม 2', 'x':'เวรเพิ่ม'};
+const avCls = g => g === '2' ? ' g2' : (g === '0' ? ' g0' : (g === 'x' ? ' gx' : ''));
 function personRow(day, p){
   const st = STATUS[p.status] || ['', ''];
   let name, sub;
@@ -490,36 +530,84 @@ function personRow(day, p){
   } else { name = esc(p.owner); sub = ''; }
   if (p.scan && p.scan.in) sub += (sub ? ' · ' : '') + `สแกน ${esc(p.scan.in)}${p.scan.out ? '–' + esc(p.scan.out) : ''}`;
   return `<button class="p${isMine(p) ? ' mine' : ''}" onclick="openPerson('${day.date}','${esc(p.owner)}')">
-    <div class="av${p.group === '2' ? ' g2' : (p.group === '0' ? ' g0' : '')}">${initial(p.actual || p.owner)}<\/div>
+    <div class="av${avCls(p.group)}">${initial(p.actual || p.owner)}<\/div>
     <div class="pn"><div class="n">${name}<\/div>${sub ? `<div class="s">${sub}<\/div>` : ''}<\/div>
     <span class="st ${st[1]}">${st[0]}<\/span><\/button>`;
 }
 function detailPanel(){
-  const day = S.sel && dayOf(S.sel);
-  if (!day) return `<div class="card empty"><i class="ti ti-calendar" style="font-size:28px"><\/i><br>เลือกวันที่มีเวรในปฏิทิน<\/div>`;
-  const subs = day.people.filter(p => p.swap && p.swap.status === 'แทนแล้ว').length;
-  const open = day.people.filter(p => p.status === 'open').length;
+  const k = S.sel;
+  if (!k) return `<div class="card empty"><i class="ti ti-calendar" style="font-size:28px"><\/i><br>เลือกวันในปฏิทิน<\/div>`;
+  const day = dayOf(k), hs = holsOf(k);
+  const people = day ? day.people : [];
+  const subs = people.filter(p => p.swap && p.swap.status === 'แทนแล้ว').length;
+  const open = people.filter(p => p.status === 'open').length;
   const groups = {};
-  day.people.forEach(p => { (groups[p.group] = groups[p.group] || []).push(p); });
-  const gname = {'0':'ฝ่ายอื่น','1':'กลุ่ม 1','2':'กลุ่ม 2'};
-  const multi = Object.keys(groups).length > 1;
-  const list = Object.keys(groups).sort((a, b) => (a === '0') - (b === '0') || a - b).map(g =>
-    (multi ? `<div class="grp">${gname[g] || 'กลุ่ม ' + esc(g)}<\/div>` : '') + groups[g].map(p => personRow(day, p)).join('')).join('');
+  people.forEach(p => { (groups[p.group] = groups[p.group] || []).push(p); });
+  const order = ['1', '2', '0', 'x'];
+  const keys = Object.keys(groups).sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  const multi = keys.length > 1 || keys[0] === 'x';
+  const list = keys.map(g => (multi ? `<div class="grp">${GROUP_NAME[g] || 'กลุ่ม ' + esc(g)}<\/div>` : '') + groups[g].map(p => personRow(day, p)).join('')).join('');
+  const addBtn = isAdmin() ? `<button class="btn sm${people.length ? '' : ' gold'}" style="margin-top:14px" onclick="openExtra('${k}')"><i class="ti ti-user-plus"><\/i>เพิ่มคนเข้าทำงานวันนี้<\/button>` : '';
   return `<div class="card">
-    <div class="dhead"><div class="eyebrow">${relDay(day.date)}${day.dept ? ' · ' + esc(day.dept) : ''}<\/div>
-      <div class="d" style="margin-top:4px">${fmtDate(day.date, true)}<\/div>
+    <div class="dhead"><div class="eyebrow">${relDay(k)}${day && day.dept ? ' · ' + esc(day.dept) : ''}<\/div>
+      <div class="d" style="margin-top:4px">${fmtDate(k, true)}<\/div>
       <div class="row" style="margin-top:10px">
-        ${day.cancelled ? '<span class="tag bad">ยกเลิกเวร<\/span>' : `<span class="tag"><i class="ti ti-users" style="font-size:14px"><\/i>${day.people.length} คน<\/span>`}
-        ${day.all ? '<span class="tag gold">เข้าทั้งหมด<\/span>' : ''}
+        ${hs.map(h => `<span class="tag ${h.type === 'วันสำคัญ' ? '' : 'hol'}"><i class="ti ti-flag" style="font-size:14px"><\/i>${esc(h.name)}<\/span>`).join('')}
+        ${day && day.cancelled ? '<span class="tag bad">ยกเลิกเวร<\/span>' : (people.length ? `<span class="tag"><i class="ti ti-users" style="font-size:14px"><\/i>${people.length} คน<\/span>` : '')}
+        ${day && day.all ? '<span class="tag gold">เข้าทั้งหมด<\/span>' : ''}
         ${subs ? `<span class="tag sub">มีคนแทน ${subs}<\/span>` : ''}
         ${open ? `<span class="tag warn">หาคนแทน ${open}<\/span>` : ''}
-        ${day.hasScan ? '<span class="tag"><i class="ti ti-fingerprint" style="font-size:14px"><\/i>มีข้อมูลสแกน<\/span>' : ''}
+        ${day && day.hasScan ? '<span class="tag"><i class="ti ti-fingerprint" style="font-size:14px"><\/i>มีข้อมูลสแกน<\/span>' : ''}
       <\/div>
-      ${day.note ? `<div class="small t2" style="margin-top:10px"><i class="ti ti-note" style="font-size:15px"><\/i> ${esc(day.note)}<\/div>` : ''}
+      ${day && day.note ? `<div class="small t2" style="margin-top:10px"><i class="ti ti-note" style="font-size:15px"><\/i> ${esc(day.note)}<\/div>` : ''}
     <\/div>
-    ${day.people.length ? `<div class="people">${list}<\/div>` : (day.cancelled ? '' : '<div class="empty">ไม่มีรายชื่อในแพลน<\/div>')}
-    ${!day.cancelled && day.people.length && day.date >= S.data.today ? '<div class="muted small" style="margin-top:12px">กดที่ชื่อเพื่อแจ้งมาไม่ได้ / หาคนแทน / ดูรายละเอียด<\/div>' : ''}
+    ${people.length ? `<div class="people">${list}<\/div>` : `<div class="muted" style="margin-top:14px">${day && day.cancelled ? 'วันนี้ยกเลิกเวร' : 'วันนี้ไม่มีเวร'}<\/div>`}
+    ${people.length && k >= S.data.today ? '<div class="muted small" style="margin-top:12px">กดที่ชื่อเพื่อแจ้งมาไม่ได้ / หาคนแทน / ดูรายละเอียด<\/div>' : ''}
+    ${addBtn}
   <\/div>`;
+}
+
+/* เพิ่มคนเข้าทำงาน (ผู้ดูแล) */
+let XPICK = new Set();
+function openExtra(date){
+  const day = dayOf(date);
+  const busy = new Set();
+  if (day) day.people.forEach(p => { busy.add(p.owner); if (p.actual) busy.add(p.actual); });
+  const y = date.slice(0, 4), load = {};
+  S.data.days.forEach(d => { if (!d.cancelled && d.date.slice(0, 4) === y) d.people.forEach(p => { if (p.actual) load[p.actual] = (load[p.actual] || 0) + 1; }); });
+  const cs = activeStaff().filter(s => !busy.has(s.nick)).sort((a, b) => (load[a.nick] || 0) - (load[b.nick] || 0) || a.nick.localeCompare(b.nick, 'th'));
+  XPICK = new Set();
+  const hs = holsOf(date);
+  modal('เพิ่มคนเข้าทำงาน', `<div style="font-weight:600">${fmtDate(date, true)}<\/div>
+    ${hs.length ? `<div class="small" style="color:#E08B7A;margin-top:2px">${esc(hs.map(h => h.name).join(', '))}<\/div>` : ''}
+    <label class="f">หมายเหตุ (ไม่บังคับ)<\/label><input class="in" id="xNote" maxlength="200" placeholder="เข้าทำงานเพิ่ม โปร 11.11">
+    <label class="f" style="display:flex;justify-content:space-between"><span>เลือกพนักงาน<\/span><span class="muted" style="font-weight:400" id="xCount">เลือก 0 คน<\/span><\/label>
+    <div class="search"><i class="ti ti-search"><\/i><input class="in" id="xQ" placeholder="ค้นหาชื่อ" oninput="filterX()"><\/div>
+    <div class="opts" id="xList" style="margin-top:8px">${cs.length ? cs.map(c => `<button class="opt" data-n="${esc(c.nick)}" onclick="toggleX(this)">
+      <div class="av">${initial(c.nick)}<\/div><div><div style="font-weight:500">${esc(c.nick)}<\/div>${c.name ? `<div class="muted small">${esc(c.name)}<\/div>` : ''}<\/div>
+      <div class="c">เวรปีนี้<br><b style="color:var(--txt)">${load[c.nick] || 0}<\/b> ครั้ง<\/div><\/button>`).join('') : '<div class="muted">ทุกคนมีเวรวันนี้แล้ว<\/div>'}<\/div>`,
+    `<button class="btn" onclick="closeModal()">ยกเลิก<\/button><button class="btn gold" id="xSave" onclick="saveExtra('${date}')">บันทึก<\/button>`);
+}
+function toggleX(el){
+  const n = el.dataset.n;
+  if (XPICK.has(n)) XPICK.delete(n); else XPICK.add(n);
+  el.classList.toggle('on', XPICK.has(n));
+  $('xCount').textContent = 'เลือก ' + XPICK.size + ' คน';
+}
+function filterX(){
+  const q = $('xQ').value.trim();
+  document.querySelectorAll('#xList .opt').forEach(b => { b.style.display = !q || b.innerText.indexOf(q) >= 0 ? '' : 'none'; });
+}
+function saveExtra(date){
+  if (!XPICK.size) return toast('เลือกพนักงานอย่างน้อย 1 คน', true);
+  busyBtn('xSave', true);
+  api('addExtra', {date, nicks: [...XPICK], note: $('xNote').value})
+    .then(d => { S.data = d; S.sel = date; closeModal(); toast('เพิ่มคนเข้าทำงานแล้ว ' + XPICK.size + ' คน'); })
+    .catch(e => { busyBtn('xSave', false); toast(errMsg(e), true); });
+}
+function removeExtra(date, nick){
+  if (!confirm('ลบ ' + nick + ' ออกจากเวรเพิ่มวันนี้?')) return;
+  api('removeExtra', {date, nick}).then(d => { S.data = d; closeModal(); toast('ลบแล้ว'); }).catch(e => toast(errMsg(e), true));
 }
 
 /* ---------- สรุปรายคน ---------- */
@@ -598,22 +686,182 @@ function viewHist(){
       <span class="tag ${cls[s.status] || ''}">${esc(s.status)}<\/span><\/div>`).join('') : '<div class="card empty">ยังไม่มีรายการ<\/div>'}<\/div>`;
 }
 
+/* ---------- สรุปการเข้าเวร (ตรวจสอบย้อนหลัง) ---------- */
+function monthRange(off){
+  const t = pd(S.data.today); const a = new Date(t.getFullYear(), t.getMonth() + off, 1); const b = new Date(t.getFullYear(), t.getMonth() + off + 1, 0);
+  return [ymd(a), ymd(b)];
+}
+function rInit(){ if (!S.rFrom){ const [a, b] = monthRange(0); S.rFrom = a; S.rTo = b; } }
+function reportRows(){
+  rInit();
+  const q = (S.rQ || '').trim();
+  const rows = [];
+  S.data.days.forEach(d => {
+    if (d.date < S.rFrom || d.date > S.rTo || d.cancelled) return;
+    d.people.forEach(p => {
+      const who = p.actual || '';
+      const type = p.group === 'x' ? 'เวรเพิ่ม' : (p.swap && p.swap.status === 'แทนแล้ว' ? 'มาแทน' : (p.status === 'open' ? 'แจ้งไม่มา' : 'ตามแพลน'));
+      if (q && (who + ' ' + p.owner).indexOf(q) < 0) return;
+      rows.push({d, p, who, type});
+    });
+  });
+  return rows;
+}
+function fmtShort(s){ const d = pd(s); return d.getDate() + ' ' + TH_MON[d.getMonth()] + ' ' + String(d.getFullYear()).slice(2); }
+function viewReport(){
+  const rows = reportRows();
+  const dates = new Set(rows.map(r => r.d.date));
+  const cnt = k => rows.filter(r => k.indexOf(r.p.status) >= 0).length;
+  const quick = [['m0','เดือนนี้'],['m-1','เดือนก่อน'],['m3','3 เดือน'],['y','ปีนี้']];
+  const metric = (label, v, color) => `<div class="metric"><div class="muted small">${label}<\/div><div class="v" ${color ? `style="color:${color}"` : ''}>${v}<\/div><\/div>`;
+  let body = '', last = '';
+  rows.forEach(r => {
+    const st = STATUS[r.p.status] || ['', ''];
+    const first = r.d.date !== last; last = r.d.date;
+    const hs = holsOf(r.d.date).filter(h => h.type !== 'วันสำคัญ');
+    const note = [r.p.swap && r.p.swap.reason ? 'เหตุผล: ' + r.p.swap.reason : '', r.p.swap ? 'บันทึกโดย ' + r.p.swap.by : '', r.p.scan ? r.p.scan.src.join(', ') : ''].filter(Boolean).join(' · ');
+    body += `<tr class="${first ? 'first' : ''}" onclick="pickDay('${r.d.date}')">
+      <td>${first ? `<b style="font-weight:500">${fmtDate(r.d.date)}<\/b>${hs.length ? `<div class="small" style="color:#E08B7A">${esc(hs[0].name)}<\/div>` : ''}${r.d.note ? `<div class="muted small">${esc(r.d.note)}<\/div>` : ''}` : ''}<\/td>
+      <td style="text-align:left"><b style="font-weight:500">${r.who ? esc(r.who) : '<span class="muted">— ไม่มีคนแทน —<\/span>'}<\/b><\/td>
+      <td style="text-align:left">${r.type === 'มาแทน' ? `แทน <b style="font-weight:500">${esc(r.p.owner)}<\/b>` : (r.type === 'แจ้งไม่มา' ? esc(r.p.owner) + ' แจ้งไม่มา' : '<span class="muted">—<\/span>')}<\/td>
+      <td><span class="tag ${r.type === 'มาแทน' ? 'sub' : (r.type === 'เวรเพิ่ม' ? 'xtra' : (r.type === 'แจ้งไม่มา' ? 'warn' : ''))}">${r.type}<\/span><\/td>
+      <td class="mono">${r.p.scan && r.p.scan.in ? esc(r.p.scan.in) : '<span class="num0">—<\/span>'}<\/td>
+      <td class="mono">${r.p.scan && r.p.scan.out ? esc(r.p.scan.out) : '<span class="num0">—<\/span>'}<\/td>
+      <td><span class="st ${st[1]}">${st[0]}<\/span><\/td>
+      <td style="text-align:left" class="muted small">${esc(note)}<\/td><\/tr>`;
+  });
+  return `<div class="row" style="justify-content:space-between;margin-bottom:14px;align-items:flex-end">
+      <div><div class="eyebrow">ตรวจสอบย้อนหลัง<\/div><div style="font-size:19px;font-weight:600;margin-top:2px">สรุปการเข้าเวร<\/div><\/div>
+      <div class="row">
+        <div class="seg">${quick.map(x => `<button onclick="rQuick('${x[0]}')">${x[1]}<\/button>`).join('')}<\/div>
+        <div class="rp"><button class="btn" onclick="toggleRP(event)"><i class="ti ti-calendar"><\/i>${fmtShort(S.rFrom)} – ${fmtShort(S.rTo)}<\/button><\/div>
+      <\/div><\/div>
+    <div class="metrics">${metric('วันที่มีเวร', dates.size)}${metric('รายการเข้าเวร', rows.length)}${metric('มาแล้ว', cnt(['present','sub']), 'var(--ok)')}${metric('มาแทน', rows.filter(r => r.type === 'มาแทน').length, 'var(--sub)')}${metric('ขาด', cnt(['absent','subabsent']), 'var(--bad)')}${metric('ไม่มีข้อมูลสแกน', cnt(['noscan']))}<\/div>
+    <div class="row" style="margin:14px 0 10px;justify-content:space-between">
+      <div class="search" style="flex:1;max-width:320px"><i class="ti ti-search"><\/i><input class="in" id="rQ" placeholder="ค้นหาชื่อพนักงาน" value="${esc(S.rQ || '')}" oninput="S.rQ=this.value;rRefresh()"><\/div>
+      <button class="btn sm" onclick="exportReport()"><i class="ti ti-download"><\/i>ดาวน์โหลด CSV (Excel)<\/button><\/div>
+    <div class="tablewrap" id="rTable"><table class="report">
+      <thead><tr><th>วันที่<\/th><th style="text-align:left">ผู้เข้าเวร<\/th><th style="text-align:left">แทนใคร<\/th><th>ประเภท<\/th><th>สแกนเข้า<\/th><th>สแกนออก<\/th><th>สถานะ<\/th><th style="text-align:left">หมายเหตุ<\/th><\/tr><\/thead>
+      <tbody>${body || '<tr><td colspan="8" class="empty">ไม่มีเวรในช่วงนี้<\/td><\/tr>'}<\/tbody><\/table><\/div>`;
+}
+function rRefresh(){
+  const pos = $('rQ').selectionStart;
+  render();
+  const el = $('rQ'); if (el){ el.focus(); el.setSelectionRange(pos, pos); }
+}
+function rQuick(k){
+  const t = pd(S.data.today);
+  if (k === 'm0') [S.rFrom, S.rTo] = monthRange(0);
+  else if (k === 'm-1') [S.rFrom, S.rTo] = monthRange(-1);
+  else if (k === 'm3'){ S.rFrom = monthRange(-2)[0]; S.rTo = monthRange(0)[1]; }
+  else { S.rFrom = t.getFullYear() + '-01-01'; S.rTo = t.getFullYear() + '-12-31'; }
+  render();
+}
+/* ปฏิทินเล็กเลือกช่วงวัน */
+let RP = null;
+function toggleRP(ev){
+  ev.stopPropagation();
+  if ($('rpPop')) return closeRP();
+  RP = {month: S.rFrom.slice(0, 7), a: S.rFrom, b: S.rTo, picking: false};
+  const pop = document.createElement('div');
+  pop.className = 'rppop'; pop.id = 'rpPop';
+  pop.addEventListener('click', e => e.stopPropagation());
+  ev.currentTarget.parentNode.appendChild(pop);
+  drawRP();
+}
+function closeRP(){ const p = $('rpPop'); if (p) p.remove(); }
+document.addEventListener('click', closeRP);
+function drawRP(){
+  const pop = $('rpPop'); if (!pop) return;
+  const [y, m] = RP.month.split('-').map(Number);
+  const first = new Date(y, m - 1, 1);
+  const start = new Date(first); start.setDate(1 - ((first.getDay() + 6) % 7));
+  const duty = new Set(S.data.days.filter(d => !d.cancelled).map(d => d.date));
+  let cells = ['จ','อ','พ','พฤ','ศ','ส','อา'].map(x => `<span class="muted">${x}<\/span>`).join('');
+  for (let i = 0; i < 42; i++){
+    const d = new Date(start); d.setDate(start.getDate() + i);
+    if (i >= 35 && d.getMonth() !== m - 1) break;
+    const k = ymd(d);
+    const cls = [d.getMonth() !== m - 1 ? 'o' : '', k >= RP.a && k <= RP.b ? 'in' : '', k === RP.a || k === RP.b ? 'edge' : '', duty.has(k) ? 'du' : ''].join(' ');
+    cells += `<button class="${cls}" onclick="rpPick('${k}')">${d.getDate()}<\/button>`;
+  }
+  pop.innerHTML = `<div class="row" style="justify-content:space-between;margin-bottom:8px">
+      <button class="iconbtn" onclick="rpMove(-1)"><i class="ti ti-chevron-left"><\/i><\/button>
+      <b style="font-weight:500">${TH_MON_FULL[m - 1]} ${y}<\/b>
+      <button class="iconbtn" onclick="rpMove(1)"><i class="ti ti-chevron-right"><\/i><\/button><\/div>
+    <div class="rpcal">${cells}<\/div>
+    <div class="muted small" style="margin:10px 2px">${RP.picking ? 'เลือกวันสิ้นสุด' : 'กดวันเริ่มต้น แล้วกดวันสิ้นสุด'}<\/div>
+    <div class="row"><span class="small">${fmtShort(RP.a)} – ${fmtShort(RP.b)}<\/span><span class="sp"><\/span>
+      <button class="btn sm ghost" onclick="closeRP()">ยกเลิก<\/button><button class="btn sm gold" onclick="rpApply()">ใช้ช่วงนี้<\/button><\/div>`;
+}
+function rpMove(n){ const [y, m] = RP.month.split('-').map(Number); const d = new Date(y, m - 1 + n, 1); RP.month = d.getFullYear() + '-' + pad(d.getMonth() + 1); drawRP(); }
+function rpPick(k){
+  if (!RP.picking){ RP.a = k; RP.b = k; RP.picking = true; }
+  else { if (k < RP.a){ RP.b = RP.a; RP.a = k; } else RP.b = k; RP.picking = false; }
+  drawRP();
+}
+function rpApply(){ S.rFrom = RP.a; S.rTo = RP.b; closeRP(); render(); }
+function exportReport(){
+  const rows = reportRows();
+  const head = ['วันที่', 'วันหยุด', 'ผู้เข้าเวร', 'เจ้าของเวร', 'ประเภท', 'สแกนเข้า', 'สแกนออก', 'สถานะ', 'เหตุผล', 'บันทึกโดย', 'ที่มาเวลา', 'หมายเหตุวัน'];
+  const lines = [head].concat(rows.map(r => [r.d.date, holsOf(r.d.date).map(h => h.name).join(' / '), r.who, r.p.owner, r.type,
+    r.p.scan && r.p.scan.in || '', r.p.scan && r.p.scan.out || '', (STATUS[r.p.status] || [''])[0],
+    r.p.swap ? r.p.swap.reason : '', r.p.swap ? r.p.swap.by : '', r.p.scan ? r.p.scan.src.join(', ') : '', r.d.note || '']));
+  const csv = '﻿' + lines.map(l => l.map(v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"').join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv;charset=utf-8'}));
+  a.download = 'สรุปการเข้าเวร_' + S.rFrom + '_' + S.rTo + '.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
 /* ---------- พนักงาน (ผู้ดูแล) ---------- */
+const STAFF_SORT = [['nick','ชื่อเล่น'],['code','รหัสพนักงาน'],['name','ชื่อ-นามสกุล'],['username','Username'],['role','สิทธิ์'],['active','สถานะ'],['sheet','ลำดับในชีต']];
+function staffList(){
+  const q = (S.sQ || '').trim().toLowerCase();
+  const f = S.sF || 'all', key = S.sSort || 'code', dir = S.sDir || 1;
+  const val = s => key === 'role' ? (s.admin ? 0 : 1) : key === 'active' ? (s.active ? 0 : 1) : String(s[key] || '');
+  return S.data.staff.map((s, i) => Object.assign({i}, s))
+    .filter(s => !q || [s.nick, s.code, s.name, s.username, s.alias, s.dept].join(' ').toLowerCase().indexOf(q) >= 0)
+    .filter(s => f === 'all' || (f === 'on' && s.active) || (f === 'off' && !s.active) || (f === 'noacc' && !(s.username && s.hasPass)) || (f === 'admin' && s.admin))
+    .sort((a, b) => {
+      if (key === 'sheet') return (a.i - b.i) * dir;
+      const x = val(a), y = val(b);
+      if (x === '' && y !== '') return 1;
+      if (y === '' && x !== '') return -1;
+      return (typeof x === 'number' ? x - y : x.localeCompare(y, 'th', {numeric: true})) * dir || a.i - b.i;
+    });
+}
+function staffRows(){
+  const list = staffList();
+  return list.length ? list.map(s => `<tr class="staffrow" onclick="openStaff(${s.i})">
+    <td><b style="font-weight:500">${esc(s.nick)}<\/b>${s.alias ? `<div class="muted small">${esc(s.alias)}<\/div>` : ''}<\/td>
+    <td class="mono">${s.code ? esc(s.code) : '<span class="num0">—<\/span>'}<\/td>
+    <td>${s.name ? esc(s.name) : '<span class="num0">—<\/span>'}<\/td>
+    <td>${s.username ? '@' + esc(s.username) + (s.hasPass ? '' : ' <span class="tag warn">ยังไม่มีรหัส<\/span>') : '<span class="num0">ยังไม่มีบัญชี<\/span>'}<\/td>
+    <td style="text-align:center">${s.admin ? '<span class="pill gold">admin<\/span>' : '<span class="pill">พนักงาน<\/span>'}<\/td>
+    <td style="text-align:center">${s.active ? '<span style="color:var(--ok)">ใช้งาน<\/span>' : '<span class="muted">ปิด<\/span>'}<\/td><\/tr>`).join('')
+    : '<tr><td colspan="6" class="empty">ไม่พบพนักงาน<\/td><\/tr>';
+}
+function sortBy(k){ if (S.sSort === k) S.sDir = -(S.sDir || 1); else { S.sSort = k; S.sDir = 1; } render(); }
 function viewStaff(){
-  const list = S.data.staff;
+  const key = S.sSort || 'code', dir = S.sDir || 1;
+  const th = (k, label, left) => `<th style="${left ? 'text-align:left;' : ''}cursor:pointer" onclick="sortBy('${k}')">${label}${key === k ? ` <i class="ti ti-arrow-${dir > 0 ? 'up' : 'down'}" style="font-size:13px;color:var(--gold2)"><\/i>` : ''}<\/th>`;
+  const filters = [['all','ทั้งหมด'],['on','ใช้งาน'],['off','ปิด'],['noacc','ยังไม่มีบัญชี'],['admin','admin']];
+  const total = S.data.staff.length, shown = staffList().length;
   return `<div class="row" style="justify-content:space-between;margin-bottom:14px"><div><div class="eyebrow">ผู้ดูแลระบบ<\/div><div style="font-size:19px;font-weight:600;margin-top:2px">พนักงานและบัญชีผู้ใช้<\/div><\/div>
       <button class="btn gold" onclick="openStaff(null)"><i class="ti ti-user-plus"><\/i>เพิ่มพนักงาน<\/button><\/div>
+    <div class="row" style="margin-bottom:10px">
+      <div class="search" style="flex:1;min-width:200px;max-width:360px"><i class="ti ti-search"><\/i><input class="in" id="sQ" placeholder="ค้นหา ชื่อเล่น รหัส ชื่อ-นามสกุล Username" value="${esc(S.sQ || '')}" oninput="S.sQ=this.value;$('staffBody').innerHTML=staffRows();$('staffCount').textContent=staffList().length+' / ${total} คน'"><\/div>
+      <select class="in" style="width:auto" onchange="S.sSort=this.value;S.sDir=1;render()">${STAFF_SORT.map(x => `<option value="${x[0]}" ${key === x[0] ? 'selected' : ''}>เรียงตาม: ${x[1]}<\/option>`).join('')}<\/select>
+      <button class="iconbtn" aria-label="สลับลำดับ" onclick="S.sDir=-(S.sDir||1);render()"><i class="ti ti-arrows-sort"><\/i><\/button>
+      <div class="seg">${filters.map(x => `<button class="${(S.sF || 'all') === x[0] ? 'on' : ''}" onclick="S.sF='${x[0]}';render()">${x[1]}<\/button>`).join('')}<\/div>
+      <span class="muted small" id="staffCount">${shown} / ${total} คน<\/span>
+    <\/div>
     <div class="tablewrap"><table>
-      <thead><tr><th>ชื่อเล่น<\/th><th style="text-align:left">รหัส<\/th><th style="text-align:left">ชื่อ-นามสกุล<\/th><th style="text-align:left">Username<\/th><th>สิทธิ์<\/th><th>สถานะ<\/th><\/tr><\/thead>
-      <tbody>${list.map((s, i) => `<tr class="staffrow" onclick="openStaff(${i})">
-        <td><b style="font-weight:500">${esc(s.nick)}<\/b>${s.alias ? `<div class="muted small">${esc(s.alias)}<\/div>` : ''}<\/td>
-        <td>${s.code ? esc(s.code) : '<span class="num0">—<\/span>'}<\/td>
-        <td>${s.name ? esc(s.name) : '<span class="num0">—<\/span>'}<\/td>
-        <td>${s.username ? '@' + esc(s.username) + (s.hasPass ? '' : ' <span class="tag warn">ยังไม่มีรหัส<\/span>') : '<span class="num0">ยังไม่มีบัญชี<\/span>'}<\/td>
-        <td style="text-align:center">${s.admin ? '<span class="pill gold">admin<\/span>' : '<span class="pill">พนักงาน<\/span>'}<\/td>
-        <td style="text-align:center">${s.active ? '<span style="color:var(--ok)">ใช้งาน<\/span>' : '<span class="muted">ปิด<\/span>'}<\/td><\/tr>`).join('')}<\/tbody>
+      <thead><tr>${th('nick', 'ชื่อเล่น', true)}${th('code', 'รหัส', true)}${th('name', 'ชื่อ-นามสกุล', true)}${th('username', 'Username', true)}${th('role', 'สิทธิ์')}${th('active', 'สถานะ')}<\/tr><\/thead>
+      <tbody id="staffBody">${staffRows()}<\/tbody>
     <\/table><\/div>
-    <div class="muted small" style="margin-top:8px">แก้ในชีต "พนักงาน" ได้เหมือนกัน · รหัสผ่านที่พิมพ์ในชีตจะถูกเข้ารหัสอัตโนมัติ (แสดงเป็น ●●●●●●)<\/div>`;
+    <div class="muted small" style="margin-top:8px">กดหัวคอลัมน์เพื่อเรียง · แก้ในชีต "พนักงาน" ได้เหมือนกัน · รหัสผ่านที่พิมพ์ในชีตจะถูกเข้ารหัสอัตโนมัติ (แสดงเป็น ●●●●●●)<\/div>`;
 }
 function openStaff(i){
   const s = i == null ? {active: true} : S.data.staff[i];
@@ -677,8 +925,8 @@ function openPerson(date, owner){
   const past = date < S.data.today;
   const me = ME().nick;
   const canCancel = p.swap && (isAdmin() || [p.swap.by, p.owner, p.swap.sub].indexOf(me) >= 0) && (!past || isAdmin());
-  let info = `<div class="row" style="justify-content:space-between"><div class="row" style="gap:12px"><div class="av" style="width:44px;height:44px;font-size:16px">${initial(p.actual || p.owner)}<\/div>
-    <div><div style="font-size:17px;font-weight:600">${esc(p.actual || p.owner)}<\/div><div class="muted small">${p.actual && p.actual !== p.owner ? 'แทนเจ้าของเวร ' + esc(p.owner) : 'เจ้าของเวร'}<\/div><\/div><\/div>
+  let info = `<div class="row" style="justify-content:space-between"><div class="row" style="gap:12px"><div class="av${avCls(p.group)}" style="width:44px;height:44px;font-size:16px">${initial(p.actual || p.owner)}<\/div>
+    <div><div style="font-size:17px;font-weight:600">${esc(p.actual || p.owner)}<\/div><div class="muted small">${p.actual && p.actual !== p.owner ? 'แทนเจ้าของเวร ' + esc(p.owner) : (p.group === 'x' ? 'เวรเพิ่ม' : 'เจ้าของเวร')}<\/div><\/div><\/div>
     <span class="st ${st[1]}">${st[0]}<\/span><\/div>`;
   if (p.swap) info += `<div class="card" style="margin-top:14px;background:var(--s2)">
       <div class="muted small">${p.swap.status === 'หาคนแทน' ? 'แจ้งไม่มา' : 'บันทึกการแทน'} โดย ${esc(p.swap.by)} · ${esc(p.swap.at)}<\/div>
@@ -689,6 +937,7 @@ function openPerson(date, owner){
     <button class="btn sm" onclick="markAtt('${date}','${esc(p.actual || p.owner)}')">ทำเครื่องหมายว่ามา<\/button>
     ${p.scan && p.scan.src.indexOf('บันทึกมือ') >= 0 ? `<button class="btn sm danger" onclick="markAtt('${date}','${esc(p.actual || p.owner)}',true)">ลบที่บันทึกมือ<\/button>` : ''}<\/div>`;
   const btns = [];
+  if (isAdmin() && p.group === 'x') btns.push(`<button class="btn danger" onclick="removeExtra('${date}','${esc(p.owner)}')">ลบออกจากเวรเพิ่ม<\/button>`);
   if (!day.cancelled && (!past || isAdmin())){
     if (canCancel) btns.push(`<button class="btn danger" onclick="doCancel('${p.swap.id}')">ยกเลิกการแทน<\/button>`);
     if (p.status === 'open' && p.owner !== me) btns.push(`<button class="btn gold" onclick="openTake('${p.swap.id}')">ฉันไปแทนเอง<\/button>`);
