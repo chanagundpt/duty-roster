@@ -215,6 +215,14 @@ table.report tr.first td{border-top:1px solid var(--line2)}
 .rpcal button.in{background:var(--goldbg);color:var(--txt)}
 .rpcal button.edge{background:var(--gold);color:#16120C}
 @media (max-width:640px){ .cell .hol{display:none} .rppop{right:auto;left:0;width:min(300px,calc(100vw - 32px))} }
+.su-alt{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:center;gap:10px;color:var(--mut);font-size:13.5px;flex-wrap:wrap}
+.su-list{margin-top:10px;max-height:min(46vh,380px);overflow-y:auto;display:flex;flex-direction:column;gap:6px}
+.su-name{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--s1);border:1px solid var(--line);border-radius:10px;padding:9px 12px;color:var(--txt);font:inherit;font-size:15px;cursor:pointer}
+.su-name:hover{border-color:var(--gold)}
+.su-name .ti{margin-left:auto;color:var(--mut)}
+.su-name .av,.su-me .av{width:34px;height:34px;font-size:14px;flex:none}
+.su-me{display:flex;align-items:center;gap:12px;margin:18px 0 6px;padding:12px;border:1px solid var(--line2);border-radius:10px;background:var(--s1)}
+.linkbtn{background:none;border:0;padding:0;color:var(--gold2);font:inherit;font-size:12.5px;cursor:pointer}
 /* มือถือ */
 @media (max-width:899px){
   .top{backdrop-filter:none;background:var(--bg)}
@@ -244,7 +252,7 @@ table.report tr.first td{border-top:1px solid var(--line2)}
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxOacNTG4tGdFwtELxqvnEA-kjo1rDqyAWKIXm6z89foVDzj3k6Y1ugJE3Ut9rSFdY/exec";
-const PAGE_VERSION = '2026-10-27.3';
+const PAGE_VERSION = '2026-10-29.1';
 
 /* ---------- ตัวเรียกเซิร์ฟเวอร์ ---------- */
 function call(fn, ...args){
@@ -351,8 +359,77 @@ function showLogin(msg){
       <label class="chk"><input type="checkbox" id="lgR" checked> จดจำการเข้าสู่ระบบในเครื่องนี้ (30 วัน)<\/label>
       <button class="btn gold" id="lgBtn" style="width:100%;margin-top:18px;padding:12px">เข้าสู่ระบบ<\/button>
       <div class="err" id="lgErr">${esc(msg || '')}<\/div>
-    <\/form><\/div><\/div>`;
+    <\/form>
+    <div class="su-alt">ยังไม่มีบัญชี?<button class="btn" type="button" onclick="showSignup()"><i class="ti ti-user-plus"><\/i> สมัครใช้งาน<\/button><\/div>
+    <\/div><\/div>`;
   setTimeout(() => $('lgU') && $('lgU').focus(), 50);
+}
+
+/* ---------- สมัครใช้งานเอง: 1) เลือกชื่อตัวเอง 2) ตั้ง Username/รหัสผ่าน ---------- */
+const SU = { list: null, q: '', pick: null };
+function suBox(inner){
+  $('app').innerHTML = `<div class="login"><div class="box">
+    <div class="mark">2NK<\/div>
+    <div class="eyebrow">Duty Roster<\/div>
+    ${inner}<\/div><\/div>`;
+}
+function showSignup(){
+  SU.pick = null; SU.q = '';
+  suBox(`<h1>สมัครใช้งาน<\/h1><div class="muted small">ขั้นที่ 1 จาก 2 · เลือกชื่อของคุณ<\/div>
+    <div id="suBody" style="margin-top:18px"><div class="muted small">กำลังโหลดรายชื่อ…<\/div><\/div>
+    <div class="su-alt"><button class="btn" type="button" onclick="showLogin()"><i class="ti ti-arrow-left"><\/i> กลับไปหน้าเข้าสู่ระบบ<\/button><\/div>`);
+  call('signupList').then(l => { SU.list = l; drawSuList(); })
+    .catch(e => { $('suBody').innerHTML = `<div class="err">${esc(errMsg(e))}<\/div>`; });
+}
+function drawSuList(){
+  const box = $('suBody'); if (!box) return;
+  if (!SU.list.length){ box.innerHTML = '<div class="muted">ทุกคนมีบัญชีแล้ว ถ้าไม่พบชื่อหรือลืมรหัสผ่าน ติดต่อผู้ดูแล<\/div>'; return; }
+  box.innerHTML = `<div class="search"><i class="ti ti-search"><\/i><input class="in" id="suQ" placeholder="ค้นหาชื่อเล่น" value="${esc(SU.q)}" oninput="SU.q=this.value;drawSuNames()"><\/div>
+    <div class="su-list" id="suNames"><\/div>
+    <div class="muted small" style="margin-top:10px">ไม่พบชื่อ / มีบัญชีอยู่แล้ว? ติดต่อผู้ดูแล<\/div>`;
+  drawSuNames();
+}
+function drawSuNames(){
+  const q = SU.q.trim().toLowerCase();
+  const l = SU.list.filter(s => !q || s.nick.toLowerCase().includes(q));
+  $('suNames').innerHTML = l.length ? l.map(s => `<button type="button" class="su-name" onclick="suPick('${esc(s.nick)}')">
+      <span class="av">${initial(s.nick)}<\/span><span>${esc(s.nick)}<\/span><i class="ti ti-chevron-right"><\/i><\/button>`).join('')
+    : '<div class="muted small" style="padding:10px 2px">ไม่พบชื่อที่ค้นหา<\/div>';
+}
+function suPick(nick){
+  SU.pick = SU.list.find(s => s.nick === nick);
+  if (!SU.pick) return;
+  suBox(`<h1>สมัครใช้งาน<\/h1><div class="muted small">ขั้นที่ 2 จาก 2 · ตั้ง Username และรหัสผ่าน<\/div>
+    <div class="su-me"><span class="av">${initial(nick)}<\/span><div><div style="font-weight:600">${esc(nick)}<\/div>
+      <button type="button" class="linkbtn" onclick="showSignup()">ไม่ใช่ฉัน · เลือกชื่ออื่น<\/button><\/div><\/div>
+    <form onsubmit="doSignup(event)">
+      ${SU.pick.needCode ? `<label class="f">รหัสพนักงาน (ตามระบบสแกนนิ้ว)<\/label>
+      <input class="in" id="suC" inputmode="numeric" autocomplete="off" required>` : ''}
+      <label class="f">Username <span class="muted small">(a-z 0-9 . _ - อย่างน้อย 3 ตัว)<\/span><\/label>
+      <input class="in" id="suU" autocomplete="username" autocapitalize="off" spellcheck="false" pattern="[A-Za-z0-9._\\-]{3,30}" required>
+      <label class="f">รหัสผ่าน <span class="muted small">(อย่างน้อย 6 ตัว)<\/span><\/label>
+      <input class="in" id="suP" type="password" autocomplete="new-password" minlength="6" required>
+      <label class="f">ยืนยันรหัสผ่าน<\/label>
+      <input class="in" id="suP2" type="password" autocomplete="new-password" minlength="6" required>
+      <label class="chk"><input type="checkbox" id="suR" checked> จดจำการเข้าสู่ระบบในเครื่องนี้ (30 วัน)<\/label>
+      <button class="btn gold" id="suBtn" style="width:100%;margin-top:18px;padding:12px">สร้างบัญชีและเข้าสู่ระบบ<\/button>
+      <div class="err" id="suErr"><\/div>
+    <\/form>`);
+  setTimeout(() => ($('suC') || $('suU')).focus(), 50);
+}
+function doSignup(ev){
+  ev.preventDefault();
+  if ($('suP').value !== $('suP2').value){ $('suErr').textContent = 'รหัสผ่านทั้งสองช่องไม่ตรงกัน'; return; }
+  const b = $('suBtn'); b.disabled = true; b.textContent = 'กำลังสร้างบัญชี…';
+  $('suErr').textContent = '';
+  const keep = $('suR').checked;
+  call('signup', { nick: SU.pick.nick, code: $('suC') ? $('suC').value.trim() : '', username: $('suU').value.trim(), password: $('suP').value, remember: keep })
+    .then(r => {
+      setToken(r.token, keep);
+      toast('สร้างบัญชีเรียบร้อย');
+      $('app').innerHTML = '<div class="loading"><div><div class="spin"><\/div>กำลังโหลด…<\/div><\/div>';
+      load();
+    }).catch(e => { b.disabled = false; b.textContent = 'สร้างบัญชีและเข้าสู่ระบบ'; $('suErr').textContent = errMsg(e); });
 }
 function doLogin(ev){
   ev.preventDefault();
