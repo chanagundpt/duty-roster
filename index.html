@@ -9,9 +9,11 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <link rel="icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 :root{
   --bg:#121212; --s1:#1A1A1A; --s2:#212121; --s3:#2A2A2A; --line:#2E2E2E; --line2:#3A3A3A;
@@ -26,7 +28,37 @@ html,body{margin:0;background:var(--bg);color:var(--txt);font-family:'Inter','IB
 body{min-height:100dvh}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
-i.ti{font-size:18px;line-height:1;vertical-align:-3px}
+i.ti{font-size:18px;line-height:1;vertical-align:-3px;display:inline-block;width:1em;height:1em;flex:none;background-color:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
+/* ไอคอน Tabler 3.19.0 (outline) เฉพาะที่ใช้ */
+.ti-arrow-down{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5l0 14'/%3E%3Cpath d='M18 13l-6 6'/%3E%3Cpath d='M6 13l6 6'/%3E%3C/svg%3E")}
+.ti-arrow-left{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l14 0'/%3E%3Cpath d='M5 12l6 6'/%3E%3Cpath d='M5 12l6 -6'/%3E%3C/svg%3E")}
+.ti-arrow-right{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l14 0'/%3E%3Cpath d='M13 18l6 -6'/%3E%3Cpath d='M13 6l6 6'/%3E%3C/svg%3E")}
+.ti-arrow-up{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5l0 14'/%3E%3Cpath d='M18 11l-6 -6'/%3E%3Cpath d='M6 11l6 -6'/%3E%3C/svg%3E")}
+.ti-arrows-exchange{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 10h14l-4 -4'/%3E%3Cpath d='M17 14h-14l4 4'/%3E%3C/svg%3E")}
+.ti-arrows-sort{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9l4 -4l4 4m-4 -4v14'/%3E%3Cpath d='M21 15l-4 4l-4 -4m4 4v-14'/%3E%3C/svg%3E")}
+.ti-calendar-event{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z'/%3E%3Cpath d='M16 3l0 4'/%3E%3Cpath d='M8 3l0 4'/%3E%3Cpath d='M4 11l16 0'/%3E%3Cpath d='M8 15h2v2h-2z'/%3E%3C/svg%3E")}
+.ti-calendar-star{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 21h-5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3.5'/%3E%3Cpath d='M16 3v4'/%3E%3Cpath d='M8 3v4'/%3E%3Cpath d='M4 11h11'/%3E%3Cpath d='M17.8 20.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138z'/%3E%3C/svg%3E")}
+.ti-calendar{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z'/%3E%3Cpath d='M16 3v4'/%3E%3Cpath d='M8 3v4'/%3E%3Cpath d='M4 11h16'/%3E%3Cpath d='M11 15h1'/%3E%3Cpath d='M12 15v3'/%3E%3C/svg%3E")}
+.ti-chart-bar{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z'/%3E%3Cpath d='M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z'/%3E%3Cpath d='M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z'/%3E%3Cpath d='M4 20h14'/%3E%3C/svg%3E")}
+.ti-chevron-down{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6l6 -6'/%3E%3C/svg%3E")}
+.ti-chevron-left{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M15 6l-6 6l6 6'/%3E%3C/svg%3E")}
+.ti-chevron-right{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6l-6 6'/%3E%3C/svg%3E")}
+.ti-download{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2'/%3E%3Cpath d='M7 11l5 5l5 -5'/%3E%3Cpath d='M12 4l0 12'/%3E%3C/svg%3E")}
+.ti-file-spreadsheet{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3v4a1 1 0 0 0 1 1h4'/%3E%3Cpath d='M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z'/%3E%3Cpath d='M8 11h8v7h-8z'/%3E%3Cpath d='M8 15h8'/%3E%3Cpath d='M11 11v7'/%3E%3C/svg%3E")}
+.ti-fingerprint{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18.9 7a8 8 0 0 1 1.1 5v1a6 6 0 0 0 .8 3'/%3E%3Cpath d='M8 11a4 4 0 0 1 8 0v1a10 10 0 0 0 2 6'/%3E%3Cpath d='M12 11v2a14 14 0 0 0 2.5 8'/%3E%3Cpath d='M8 15a18 18 0 0 0 1.8 6'/%3E%3Cpath d='M4.9 19a22 22 0 0 1 -.9 -7v-1a8 8 0 0 1 12 -6.95'/%3E%3C/svg%3E")}
+.ti-flag{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 5a5 5 0 0 1 7 0a5 5 0 0 0 7 0v9a5 5 0 0 1 -7 0a5 5 0 0 0 -7 0v-9z'/%3E%3Cpath d='M5 21v-7'/%3E%3C/svg%3E")}
+.ti-hand-stop{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 13v-7.5a1.5 1.5 0 0 1 3 0v6.5'/%3E%3Cpath d='M11 5.5v-2a1.5 1.5 0 1 1 3 0v8.5'/%3E%3Cpath d='M14 5.5a1.5 1.5 0 0 1 3 0v6.5'/%3E%3Cpath d='M17 7.5a1.5 1.5 0 0 1 3 0v8.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7a69.74 69.74 0 0 1 -.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47'/%3E%3C/svg%3E")}
+.ti-help{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0'/%3E%3Cpath d='M12 17l0 .01'/%3E%3Cpath d='M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4'/%3E%3C/svg%3E")}
+.ti-key{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z'/%3E%3Cpath d='M15 9h.01'/%3E%3C/svg%3E")}
+.ti-logout{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2'/%3E%3Cpath d='M9 12h12l-3 -3'/%3E%3Cpath d='M18 15l3 -3'/%3E%3C/svg%3E")}
+.ti-note{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M13 20l7 -7'/%3E%3Cpath d='M13 20v-6a1 1 0 0 1 1 -1h6v-7a2 2 0 0 0 -2 -2h-12a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7'/%3E%3C/svg%3E")}
+.ti-refresh{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4'/%3E%3Cpath d='M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4'/%3E%3C/svg%3E")}
+.ti-report-analytics{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2'/%3E%3Cpath d='M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z'/%3E%3Cpath d='M9 17v-5'/%3E%3Cpath d='M12 17v-1'/%3E%3Cpath d='M15 17v-3'/%3E%3C/svg%3E")}
+.ti-search{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0'/%3E%3Cpath d='M21 21l-6 -6'/%3E%3C/svg%3E")}
+.ti-settings{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z'/%3E%3Cpath d='M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0'/%3E%3C/svg%3E")}
+.ti-user-plus{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0'/%3E%3Cpath d='M16 19h6'/%3E%3Cpath d='M19 16v6'/%3E%3Cpath d='M6 21v-2a4 4 0 0 1 4 -4h4'/%3E%3C/svg%3E")}
+.ti-users{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0'/%3E%3Cpath d='M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3Cpath d='M21 21v-2a4 4 0 0 0 -3 -3.85'/%3E%3C/svg%3E")}
+.ti-x{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6l-12 12'/%3E%3Cpath d='M6 6l12 12'/%3E%3C/svg%3E")}
 .top{position:sticky;top:0;z-index:20;background:rgba(18,18,18,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topin{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:calc(env(safe-area-inset-top) + 10px) 16px 10px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;letter-spacing:.3px;white-space:nowrap}
@@ -177,6 +209,8 @@ select.in{appearance:none;background-image:linear-gradient(45deg,transparent 50%
 .menu button:hover{background:var(--s3)}
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 86px);transform:translateX(-50%);background:var(--s3);border:1px solid var(--line2);color:var(--txt);padding:10px 16px;border-radius:10px;z-index:80;max-width:92vw;font-size:14px}
 .toast.err{border-color:rgba(217,119,106,.6);color:var(--bad)}
+.stale{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 64px);transform:translateX(-50%);z-index:40;background:var(--s2);border:1px solid var(--line2);color:var(--txt2);border-radius:99px;padding:5px 12px;font-size:12.5px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.stale .spin{width:13px;height:13px;margin:0;border-width:2px}
 .loading{display:grid;place-items:center;min-height:60vh;color:var(--mut)}
 .spin{width:26px;height:26px;border:2px solid var(--line2);border-top-color:var(--gold);border-radius:50%;animation:sp .8s linear infinite;margin:0 auto 12px}
 @keyframes sp{to{transform:rotate(360deg)}}
@@ -252,7 +286,7 @@ table.report tr.first td{border-top:1px solid var(--line2)}
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxOacNTG4tGdFwtELxqvnEA-kjo1rDqyAWKIXm6z89foVDzj3k6Y1ugJE3Ut9rSFdY/exec";
-const PAGE_VERSION = '2026-10-29.1';
+const PAGE_VERSION = '2026-10-29.2';
 
 /* ---------- ตัวเรียกเซิร์ฟเวอร์ ---------- */
 function call(fn, ...args){
@@ -260,10 +294,7 @@ function call(fn, ...args){
     return new Promise((res, rej) => google.script.run.withSuccessHandler(res)
       .withFailureHandler(e => rej(new Error((e && e.message) || e)))[fn](...args));
   }
-  if (API_URL){
-    return fetch(API_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({fn, args})})
-      .then(r => r.json()).then(j => { if (j.error) throw new Error(j.error); return j.result; });
-  }
+  if (API_URL) return post(fn, args, READ_FNS.indexOf(fn) >= 0 ? 1 : 0);
   if (window.LOCAL_API){
     return new Promise((res, rej) => setTimeout(() => {
       try { res(JSON.parse(JSON.stringify(window.LOCAL_API[fn](...args)))); } catch(e){ rej(e); }
@@ -271,10 +302,24 @@ function call(fn, ...args){
   }
   return Promise.reject(new Error('ยังไม่ได้ตั้งค่า API_URL'));
 }
+/* คำสั่งที่อ่านอย่างเดียว ลองใหม่อัตโนมัติได้ถ้าเน็ตสะดุด (คำสั่งบันทึกไม่ลองซ้ำ กันบันทึกซ้อน) */
+const READ_FNS = ['getData', 'signupList', 'ping'];
+function post(fn, args, retry){
+  const ctl = window.AbortController ? new AbortController() : null;
+  const timer = ctl && setTimeout(() => ctl.abort(), 90000);
+  return fetch(API_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({fn, args}), signal: ctl ? ctl.signal : undefined})
+    .then(r => r.text())
+    .then(t => { let j; try { j = JSON.parse(t); } catch(e){ throw new Error('เซิร์ฟเวอร์ตอบกลับผิดรูปแบบ ลองใหม่อีกครั้ง'); } if (j.error) throw new Error(j.error); return j.result; },
+      e => {
+        if (retry > 0) return new Promise(r => setTimeout(r, 1500)).then(() => post(fn, args, retry - 1));
+        throw new Error(e && e.name === 'AbortError' ? 'เซิร์ฟเวอร์ตอบช้าเกินไป ลองใหม่อีกครั้ง' : 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่');
+      })
+    .finally(() => timer && clearTimeout(timer));
+}
 /* เรียกพร้อม token; หมดอายุ → กลับหน้าเข้าสู่ระบบ */
 function api(fn, ...args){
   return call(fn, S.token, ...args).catch(e => {
-    if (e && e.message === 'AUTH'){ setToken('', false); showLogin('เซสชันหมดอายุ เข้าสู่ระบบอีกครั้ง'); throw new Error('เซสชันหมดอายุ'); }
+    if (e && e.message === 'AUTH'){ setToken('', false); clearCache(); showLogin('เซสชันหมดอายุ เข้าสู่ระบบอีกครั้ง'); throw new Error('เซสชันหมดอายุ'); }
     throw e;
   });
 }
@@ -289,6 +334,20 @@ const S = {
   statRange: 'year', person: '', histFilter: 'active', staffEdit: null
 };
 function setToken(t, keep){ S.token = t; store.set('token', t, keep); }
+let DATA_SEQ = 0, LAST_LOAD = 0;
+/* ตั้งข้อมูลชุดใหม่ (นับลำดับ — ผลโหลดเบื้องหลังที่เก่ากว่าการบันทึกล่าสุดจะถูกทิ้ง) */
+function setData(d){
+  DATA_SEQ++;
+  S.data = d; S.stale = false; LAST_LOAD = Date.now();
+  try {
+    const keep = !!localStorage.getItem('duty.token');
+    store.set('cache', JSON.stringify({token: S.token, d}), keep);
+  } catch(e){}
+}
+function readCache(){
+  try { const c = JSON.parse(store.get('cache') || 'null'); return c && c.token === S.token && c.d && c.d.days ? c.d : null; } catch(e){ return null; }
+}
+function clearCache(){ store.set('cache', '', false); }
 
 const STATUS = {
   present:  ['มาแล้ว', 's-present'],
@@ -342,7 +401,7 @@ const isMine = p => ME() && (p.owner === ME().nick || p.actual === ME().nick);
 
 /* ---------- เข้าสู่ระบบ ---------- */
 function showLogin(msg){
-  S.data = null;
+  S.data = null; S.stale = false; drawStale();
   $('top').style.display = 'none';
   closeMenu();
   document.querySelectorAll('.ov').forEach(o => o.remove());
@@ -423,53 +482,81 @@ function doSignup(ev){
   const b = $('suBtn'); b.disabled = true; b.textContent = 'กำลังสร้างบัญชี…';
   $('suErr').textContent = '';
   const keep = $('suR').checked;
-  call('signup', { nick: SU.pick.nick, code: $('suC') ? $('suC').value.trim() : '', username: $('suU').value.trim(), password: $('suP').value, remember: keep })
+  call('signup', { nick: SU.pick.nick, code: $('suC') ? $('suC').value.trim() : '', username: $('suU').value.trim(), password: $('suP').value, remember: keep, withData: true })
     .then(r => {
       setToken(r.token, keep);
       toast('สร้างบัญชีเรียบร้อย');
-      $('app').innerHTML = '<div class="loading"><div><div class="spin"><\/div>กำลังโหลด…<\/div><\/div>';
-      load();
+      afterLogin(r);
     }).catch(e => { b.disabled = false; b.textContent = 'สร้างบัญชีและเข้าสู่ระบบ'; $('suErr').textContent = errMsg(e); });
 }
 function doLogin(ev){
   ev.preventDefault();
   const b = $('lgBtn'); b.disabled = true; b.textContent = 'กำลังตรวจสอบ…';
   $('lgErr').textContent = '';
-  call('login', $('lgU').value.trim(), $('lgP').value, $('lgR').checked).then(r => {
+  call('login', $('lgU').value.trim(), $('lgP').value, $('lgR').checked, true).then(r => {
     setToken(r.token, $('lgR').checked);
-    $('app').innerHTML = '<div class="loading"><div><div class="spin"><\/div>กำลังโหลด…<\/div><\/div>';
-    load();
+    afterLogin(r);
   }).catch(e => { b.disabled = false; b.textContent = 'เข้าสู่ระบบ'; $('lgErr').textContent = errMsg(e); });
+}
+/* เซิร์ฟเวอร์ใหม่ส่งข้อมูลมากับการล็อกอินเลย; เซิร์ฟเวอร์เก่าไม่ส่ง → โหลดตามปกติ */
+function afterLogin(r){
+  if (r && r.data && r.data.days){ setData(r.data); showData(); return; }
+  $('app').innerHTML = '<div class="loading"><div><div class="spin"><\/div>กำลังโหลด…<\/div><\/div>';
+  load();
 }
 function doLogout(){
   const t = S.token;
   setToken('', false);
+  clearCache();
   call('logout', t).catch(() => {});
   showLogin();
 }
 
 /* ---------- โหลดข้อมูล ---------- */
 let loading = false;
+/* แสดงข้อมูลใน S.data (เลือกวัน/เดือนเริ่มต้นครั้งแรก) */
+function showData(){
+  const d = S.data;
+  if (!S.month || !S.sel){
+    const nx = nextDay();
+    S.sel = S.sel || (nx ? nx.date : d.today);
+    S.month = S.month || (S.sel || d.today).slice(0, 7);
+  }
+  $('top').style.display = '';
+  if (!modalOpen()) render();
+  drawStale();
+}
 function load(quiet){
   if (!S.token) return showLogin();
   if (loading) return Promise.resolve();
   loading = true;
+  const seq = DATA_SEQ;
+  const before = S.data && !S.stale ? JSON.stringify(S.data) : '';
   return api('getData').then(d => {
-    S.data = d;
-    if (!S.month || !S.sel){
-      const nx = nextDay();
-      S.sel = S.sel || (nx ? nx.date : d.today);
-      S.month = S.month || (S.sel || d.today).slice(0, 7);
-    }
-    $('top').style.display = '';
-    if (!modalOpen()) render();
+    if (seq !== DATA_SEQ) return;              // ระหว่างโหลดมีการบันทึก → ข้อมูลจากการบันทึกใหม่กว่า
+    const same = before && JSON.stringify(d) === before;
+    setData(d);
+    if (same) LAST_LOAD = Date.now(); else showData();
+    drawStale();
   }).catch(e => {
     if (!S.token) return;
+    if (S.stale){ S.stale = 'err'; drawStale(); return; }
     if (!quiet || !S.data) $('app').innerHTML = `<div class="card empty" style="max-width:420px;margin:60px auto"><b>โหลดข้อมูลไม่ได้<\/b><br>${esc(errMsg(e))}<br><br><button class="btn gold" onclick="load()">ลองใหม่<\/button><\/div>`;
   }).finally(() => { loading = false; });
 }
-setInterval(() => { if (document.visibilityState === 'visible' && S.data && !modalOpen()) load(true); }, 60000);
-document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && S.data) load(true); });
+/* ป้ายเล็กบอกว่ากำลังแสดงข้อมูลที่เก็บไว้ในเครื่อง ระหว่างรอข้อมูลล่าสุด */
+function drawStale(){
+  let el = $('staleTag');
+  if (!S.stale || !S.data){ if (el) el.remove(); return; }
+  if (!el){ el = document.createElement('div'); el.id = 'staleTag'; el.className = 'stale'; document.body.appendChild(el); }
+  el.innerHTML = S.stale === 'err'
+    ? `<i class="ti ti-refresh"><\/i>ยังไม่ได้ข้อมูลล่าสุด <button class="linkbtn" onclick="S.stale=true;drawStale();load(true)">ลองใหม่<\/button>`
+    : `<div class="spin"><\/div>กำลังอัปเดตข้อมูลล่าสุด…`;
+}
+/* อัปเดตเบื้องหลังทุก 1 นาที และเมื่อกลับมาที่แอป (ไม่ถี่กว่า 15 วินาที) */
+const refresh = () => { if (document.visibilityState === 'visible' && S.data && !modalOpen() && Date.now() - LAST_LOAD > 15000) load(true); };
+setInterval(refresh, 60000);
+document.addEventListener('visibilitychange', refresh);
 
 /* ---------- ข้อมูลที่ใช้บ่อย ---------- */
 function upcoming(){ return S.data.days.filter(d => d.date >= S.data.today); }
@@ -510,7 +597,11 @@ function render(){
   $('acctAv').innerHTML = initial(ME().nick);
   $('acctNm').textContent = ME().nick;
   const v = {cal: viewCal, report: viewReport, stats: viewStats, hist: viewHist, staff: viewStaff}[S.tab] || viewCal;
+  const a = document.activeElement, fid = a && a.id && $('app').contains(a) ? a.id : '';
+  const pos = fid && a.selectionStart != null ? [a.selectionStart, a.selectionEnd] : null;
   $('app').innerHTML = v() + footer();
+  const f = fid && $(fid);
+  if (f){ f.focus(); if (pos) try { f.setSelectionRange(pos[0], pos[1]); } catch(e){} }
 }
 function footer(){
   const d = S.data;
@@ -679,12 +770,12 @@ function saveExtra(date){
   if (!XPICK.size) return toast('เลือกพนักงานอย่างน้อย 1 คน', true);
   busyBtn('xSave', true);
   api('addExtra', {date, nicks: [...XPICK], note: $('xNote').value})
-    .then(d => { S.data = d; S.sel = date; closeModal(); toast('เพิ่มคนเข้าทำงานแล้ว ' + XPICK.size + ' คน'); })
+    .then(d => { setData(d); S.sel = date; closeModal(); toast('เพิ่มคนเข้าทำงานแล้ว ' + XPICK.size + ' คน'); })
     .catch(e => { busyBtn('xSave', false); toast(errMsg(e), true); });
 }
 function removeExtra(date, nick){
   if (!confirm('ลบ ' + nick + ' ออกจากเวรเพิ่มวันนี้?')) return;
-  api('removeExtra', {date, nick}).then(d => { S.data = d; closeModal(); toast('ลบแล้ว'); }).catch(e => toast(errMsg(e), true));
+  once(() => api('removeExtra', {date, nick}).then(d => { setData(d); closeModal(); toast('ลบแล้ว'); }).catch(e => toast(errMsg(e), true)));
 }
 
 /* ---------- สรุปรายคน ---------- */
@@ -821,11 +912,7 @@ function viewReport(){
       <thead><tr><th>วันที่<\/th><th style="text-align:left">ผู้เข้าเวร<\/th><th style="text-align:left">แทนใคร<\/th><th>ประเภท<\/th><th>สแกนเข้า<\/th><th>สแกนออก<\/th><th>สถานะ<\/th><th style="text-align:left">หมายเหตุ<\/th><\/tr><\/thead>
       <tbody>${body || '<tr><td colspan="8" class="empty">ไม่มีเวรในช่วงนี้<\/td><\/tr>'}<\/tbody><\/table><\/div>`;
 }
-function rRefresh(){
-  const pos = $('rQ').selectionStart;
-  render();
-  const el = $('rQ'); if (el){ el.focus(); el.setSelectionRange(pos, pos); }
-}
+function rRefresh(){ render(); }
 function rQuick(k){
   const t = pd(S.data.today);
   if (k === 'm0') [S.rFrom, S.rTo] = monthRange(0);
@@ -974,7 +1061,7 @@ function saveStaffForm(isNew){
   if (o.password && o.password.length < 6) return toast('รหัสผ่านต้องมีอย่างน้อย 6 ตัว', true);
   if (o.password && !o.username) return toast('กรอก Username ด้วย', true);
   busyBtn('sfSave', true);
-  api('saveStaff', [o]).then(d => { S.data = d; closeModal(); toast('บันทึกแล้ว'); })
+  api('saveStaff', [o]).then(d => { setData(d); closeModal(); toast('บันทึกแล้ว'); })
     .catch(e => { busyBtn('sfSave', false); toast(errMsg(e), true); });
 }
 
@@ -990,6 +1077,14 @@ function modal(title, body, foot){
   ov.addEventListener('click', e => { if (e.target === ov) closeModal(); });
   document.body.appendChild(ov);
   return ov;
+}
+let ACTING = false;
+/* คำสั่งที่ไม่มีปุ่มกำลังบันทึก: กันกดซ้ำระหว่างรอเซิร์ฟเวอร์ */
+function once(p){
+  if (ACTING){ toast('กำลังบันทึกรายการก่อนหน้า รอสักครู่'); return; }
+  ACTING = true;
+  toast('กำลังบันทึก…');
+  p().finally(() => { ACTING = false; });
 }
 function busyBtn(id, on){ const b = $(id); if (b){ b.disabled = on; if (on){ b.dataset.t = b.innerHTML; b.textContent = 'กำลังบันทึก…'; } else if (b.dataset.t) b.innerHTML = b.dataset.t; } }
 
@@ -1068,7 +1163,7 @@ function pick(el){ PICK = el.dataset.n; document.querySelectorAll('#candList .op
 function doSwap(date, owner){
   busyBtn('swSave', true);
   api('saveSwap', {date, owner, sub: PICK, reason: $('swReason').value})
-    .then(d => { S.data = d; closeModal(); toast(PICK ? `บันทึกแล้ว: ${PICK} แทน ${owner}` : 'ประกาศหาคนแทนแล้ว'); })
+    .then(d => { setData(d); closeModal(); toast(PICK ? `บันทึกแล้ว: ${PICK} แทน ${owner}` : 'ประกาศหาคนแทนแล้ว'); })
     .catch(e => { busyBtn('swSave', false); toast(errMsg(e), true); });
 }
 
@@ -1084,16 +1179,17 @@ function openTake(id){
 }
 function doTake(id){
   busyBtn('tkSave', true);
-  api('takeShift', {id}).then(d => { S.data = d; closeModal(); toast('บันทึกแล้ว ขอบคุณที่ไปแทน'); })
+  api('takeShift', {id}).then(d => { setData(d); closeModal(); toast('บันทึกแล้ว ขอบคุณที่ไปแทน'); })
     .catch(e => { busyBtn('tkSave', false); toast(errMsg(e), true); });
 }
 function doCancel(id){
   if (!confirm('ยกเลิกการแทนนี้ และให้เวรกลับเป็นของเจ้าของเวรเดิม?')) return;
-  api('cancelSwap', {id}).then(d => { S.data = d; closeModal(); toast('ยกเลิกแล้ว'); }).catch(e => toast(errMsg(e), true));
+  once(() => api('cancelSwap', {id}).then(d => { setData(d); closeModal(); toast('ยกเลิกแล้ว'); }).catch(e => toast(errMsg(e), true)));
 }
 function markAtt(date, nick, clear){
-  api('markAttendance', {date, nick, in: $('mIn') ? $('mIn').value : '', out: $('mOut') ? $('mOut').value : '', clear: !!clear})
-    .then(d => { S.data = d; closeModal(); toast(clear ? 'ลบแล้ว' : 'บันทึกว่ามาแล้ว'); }).catch(e => toast(errMsg(e), true));
+  const inT = $('mIn') ? $('mIn').value : '', outT = $('mOut') ? $('mOut').value : '';
+  once(() => api('markAttendance', {date, nick, in: inT, out: outT, clear: !!clear})
+    .then(d => { setData(d); closeModal(); toast(clear ? 'ลบแล้ว' : 'บันทึกว่ามาแล้ว'); }).catch(e => toast(errMsg(e), true)));
 }
 
 /* เปลี่ยนรหัสผ่าน */
@@ -1123,16 +1219,23 @@ function openSystem(){
 }
 function admSync(){
   busyBtn('bSync', true);
-  api('syncNow').then(r => { S.data = r.data; toast(`ดึงแพลนแล้ว ${r.sync.days} วัน${r.sync.changed ? '' : ' (ไม่มีการเปลี่ยนแปลง)'}`); closeModal(); })
+  api('syncNow').then(r => { setData(r.data); toast(`ดึงแพลนแล้ว ${r.sync.days} วัน${r.sync.changed ? '' : ' (ไม่มีการเปลี่ยนแปลง)'}`); closeModal(); })
     .catch(e => { busyBtn('bSync', false); toast(errMsg(e), true); });
 }
 function admScan(){
   busyBtn('bScan', true);
-  api('importScansNow').then(r => { S.data = r.data; toast(r.scan.msg || r.scan.skipped || 'เสร็จแล้ว'); closeModal(); })
+  api('importScansNow').then(r => { setData(r.data); toast(r.scan.msg || r.scan.skipped || 'เสร็จแล้ว'); closeModal(); })
     .catch(e => { busyBtn('bScan', false); toast(errMsg(e), true); });
 }
 
-load();
+(function start(){
+  const c = S.token && readCache();
+  if (c){
+    try { S.data = c; S.stale = true; showData(); load(true); return; }
+    catch(e){ S.data = null; S.stale = false; clearCache(); drawStale(); }   // ข้อมูลในเครื่องรูปแบบเก่า → โหลดใหม่ตามปกติ
+  }
+  load();
+})();
 </script>
 </body>
 </html>
