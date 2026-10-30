@@ -286,7 +286,7 @@ table.report tr.first td{border-top:1px solid var(--line2)}
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxOacNTG4tGdFwtELxqvnEA-kjo1rDqyAWKIXm6z89foVDzj3k6Y1ugJE3Ut9rSFdY/exec";
-const PAGE_VERSION = '2026-10-29.2';
+const PAGE_VERSION = '2026-10-30.1';
 
 /* ---------- ตัวเรียกเซิร์ฟเวอร์ ---------- */
 function call(fn, ...args){
@@ -1214,8 +1214,8 @@ function openSystem(){
       <div class="muted small" style="margin-top:4px">ดึงจากไฟล์ต้นฉบับ "แพลนเข้าทำงานในวันเสาร์" (อ่านอย่างเดียว) ทุก 15 นาที และเมื่อเปิดแอป · ล่าสุด ${esc(sync)}<\/div>
       <button class="btn sm" style="margin-top:10px" id="bSync" onclick="admSync()"><i class="ti ti-refresh"><\/i>ดึงแพลนตอนนี้<\/button><\/div>
     <div class="card" style="background:var(--s2);margin-top:10px"><div style="font-weight:500"><i class="ti ti-fingerprint" style="color:var(--gold2)"><\/i> สแกนนิ้ว (Humansoft)<\/div>
-      <div class="muted small" style="margin-top:4px">${d.scanInfo.folder ? 'นำเข้าล่าสุด ' + esc(d.scanInfo.last || '-') + (d.scanInfo.msg ? '<br>' + esc(d.scanInfo.msg) : '') : 'ยังไม่ได้ตั้งโฟลเดอร์ — ใส่ Script property SCAN_FOLDER_ID'}<\/div>
-      <button class="btn sm" style="margin-top:10px" id="bScan" onclick="admScan()"><i class="ti ti-download"><\/i>นำเข้าไฟล์สแกนตอนนี้<\/button><\/div>`);
+      <div class="muted small" style="margin-top:4px">${d.scanInfo.api || d.scanInfo.folder ? (d.scanInfo.api ? 'เชื่อม Humansoft API แล้ว (ดึงอัตโนมัติทุก 15 นาที) · ' : '') + 'ดึงล่าสุด ' + esc(d.scanInfo.last || '-') + (d.scanInfo.msg ? '<br>' + esc(d.scanInfo.msg) : '') : 'ยังไม่ได้เชื่อม — ตั้ง API Key จากเมนูในชีต "2NK เวร → ตั้งค่า Humansoft API Key"'}<\/div>
+      <button class="btn sm" style="margin-top:10px" id="bScan" onclick="admScan()"><i class="ti ti-download"><\/i>ดึงเวลาสแกนตอนนี้<\/button><\/div>`);
 }
 function admSync(){
   busyBtn('bSync', true);
